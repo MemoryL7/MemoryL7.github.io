@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/MemoryL7/images-hosting/master/home.4gbabw3sip40.webp">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/MemoryL7/images-hosting/master/home.4gbabw3sip40.webp">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://raw.githubusercontent.com/MemoryL7/images-hosting/master/home.4gbabw3sip40.webp">
+  <link rel="mask-icon" href="https://raw.githubusercontent.com/MemoryL7/images-hosting/master/home.4gbabw3sip40.webp" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"memoryl7.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="SpringBoot项目在执行原生SQL（使用IPage）时异常：net.sf.jsqlparser.parser.ParseException: Encountered unexpected token:XXXXX总结  MyBatis-Plus在处理SQL时会被 MybatisPlusInterceptor 拦截，对SQL进行一系列操作，如若不需要使用注解 @InterceptorIgnore">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MyBatis Plus 执行原生SQL异常 Failed to process、net.sf.jsqlparser.parser.ParseException: Encountered unexpected token">
+<meta property="og:url" content="https://memoryl7.github.io/8038d5a65452/index.html">
+<meta property="og:site_name" content="MemoryL7">
+<meta property="og:description" content="SpringBoot项目在执行原生SQL（使用IPage）时异常：net.sf.jsqlparser.parser.ParseException: Encountered unexpected token:XXXXX总结  MyBatis-Plus在处理SQL时会被 MybatisPlusInterceptor 拦截，对SQL进行一系列操作，如若不需要使用注解 @InterceptorIgnore">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/MemoryL7/images-hosting/master/PaginationInnerInterceptor.5kdhlny0fio0.png">
+<meta property="article:published_time" content="2021-06-19T03:28:00.000Z">
+<meta property="article:modified_time" content="2022-05-19T01:55:15.119Z">
+<meta property="article:author" content="MemoryL7">
+<meta property="article:tag" content="SpringBoot">
+<meta property="article:tag" content="MyBatisPlus">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/MemoryL7/images-hosting/master/PaginationInnerInterceptor.5kdhlny0fio0.png">
+
+
+<link rel="canonical" href="https://memoryl7.github.io/8038d5a65452/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://memoryl7.github.io/8038d5a65452/","path":"8038d5a65452/","title":"MyBatis Plus 执行原生SQL异常 Failed to process、net.sf.jsqlparser.parser.ParseException: Encountered unexpected token"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>MyBatis Plus 执行原生SQL异常 Failed to process、net.sf.jsqlparser.parser.ParseException: Encountered unexpected token | MemoryL7</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">MemoryL7</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">学而时习</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#SpringBoot%E9%A1%B9%E7%9B%AE%E5%9C%A8%E6%89%A7%E8%A1%8C%E5%8E%9F%E7%94%9FSQL%EF%BC%88%E4%BD%BF%E7%94%A8IPage%EF%BC%89%E6%97%B6%E5%BC%82%E5%B8%B8%EF%BC%9Anet-sf-jsqlparser-parser-ParseException-Encountered-unexpected-token-XXXXX"><span class="nav-number">1.</span> <span class="nav-text">SpringBoot项目在执行原生SQL（使用IPage）时异常：net.sf.jsqlparser.parser.ParseException: Encountered unexpected token:XXXXX</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.1.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%B0%E5%BD%95%E4%B8%80%E4%B8%8B%E8%B0%83%E8%AF%95%E5%BC%82%E5%B8%B8%E8%BF%87%E7%A8%8B"><span class="nav-number">1.2.</span> <span class="nav-text">记录一下调试异常过程</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="MemoryL7"
+      src="https://raw.githubusercontent.com/MemoryL7/images-hosting/master/home.4gbabw3sip40.webp">
+  <p class="site-author-name" itemprop="name">MemoryL7</p>
+  <div class="site-description" itemprop="description">Blog</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/MemoryL7" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;MemoryL7" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yfan_941@icloud.com" title="E-Mail → mailto:yfan_941@icloud.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://memoryl7.github.io/8038d5a65452/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://raw.githubusercontent.com/MemoryL7/images-hosting/master/home.4gbabw3sip40.webp">
+      <meta itemprop="name" content="MemoryL7">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MemoryL7">
+      <meta itemprop="description" content="Blog">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="MyBatis Plus 执行原生SQL异常 Failed to process、net.sf.jsqlparser.parser.ParseException: Encountered unexpected token | MemoryL7">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MyBatis Plus 执行原生SQL异常 Failed to process、net.sf.jsqlparser.parser.ParseException: Encountered unexpected token
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-06-19 11:28:00" itemprop="dateCreated datePublished" datetime="2021-06-19T11:28:00+08:00">2021-06-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-05-19 09:55:15" itemprop="dateModified" datetime="2022-05-19T09:55:15+08:00">2022-05-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/MyBatisPlus/" itemprop="url" rel="index"><span itemprop="name">MyBatisPlus</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="SpringBoot项目在执行原生SQL（使用IPage）时异常：net-sf-jsqlparser-parser-ParseException-Encountered-unexpected-token-XXXXX"><a href="#SpringBoot项目在执行原生SQL（使用IPage）时异常：net-sf-jsqlparser-parser-ParseException-Encountered-unexpected-token-XXXXX" class="headerlink" title="SpringBoot项目在执行原生SQL（使用IPage）时异常：net.sf.jsqlparser.parser.ParseException: Encountered unexpected token:XXXXX"></a>SpringBoot项目在执行原生SQL（使用IPage）时异常：net.sf.jsqlparser.parser.ParseException: Encountered unexpected token:XXXXX</h3><h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><blockquote>
+<ol>
+<li>MyBatis-Plus在处理SQL时会被 <a target="_blank" rel="noopener" href="https://mp.baomidou.com/guide/interceptor.html#mybatisplusinterceptor">MybatisPlusInterceptor</a> 拦截，对SQL进行一系列操作，如若不需要使用注解 <a target="_blank" rel="noopener" href="https://mp.baomidou.com/guide/interceptor.html#mybatisplusinterceptor">@InterceptorIgnore</a> 忽略拦截即可。</li>
+<li>MyBatis-Plus在处理分页countSql时，会经过<code>PaginationInnerInterceptor.java</code>拦截器，在获取执行SQL时会通过，Page类中<code>optimizeCountSql</code>属性判断是都需要优化，如果不需要再传Page的时候设置为false即可。</li>
+</ol>
+</blockquote>
+<span id="more"></span>
+
+<h4 id="记录一下调试异常过程"><a href="#记录一下调试异常过程" class="headerlink" title="记录一下调试异常过程"></a>记录一下调试异常过程</h4><!-- more -->
+
+<blockquote>
+<p>异常内容如下：</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2021</span>-<span class="number">06</span>-<span class="number">19</span> <span class="number">11</span>:<span class="number">06</span>:<span class="number">52.090</span> ERROR <span class="number">24216</span> --- [  XNIO-<span class="number">1</span> task-<span class="number">1</span>] o.s.c.l.e.BladeRestExceptionTranslator   : 服务器异常</span><br><span class="line"></span><br><span class="line">org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.PersistenceException: </span><br><span class="line">### Error querying database.  Cause: com.baomidou.mybatisplus.core.exceptions.MybatisPlusException: Failed to process, Error SQL: xxxxxxxxxxxxxxxxxxxx</span><br><span class="line">### Cause: com.baomidou.mybatisplus.core.exceptions.MybatisPlusException: Failed to process, Error SQL: xxxxxxxxxxxxxxxxxxxxxxxxxxxxx</span><br><span class="line">	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:<span class="number">96</span>)</span><br><span class="line">	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:<span class="number">441</span>)</span><br><span class="line">	at com.sun.proxy.$Proxy135.selectList(Unknown Source)</span><br><span class="line">	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:<span class="number">224</span>)</span><br><span class="line">	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.executeForIPage(MybatisMapperMethod.java:<span class="number">122</span>)</span><br><span class="line">	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:<span class="number">86</span>)</span><br><span class="line">	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:<span class="number">148</span>)</span><br><span class="line">	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:<span class="number">89</span>)</span><br><span class="line">	at com.sun.proxy.$Proxy212.pageList(Unknown Source)</span><br><span class="line">	at org.springblade.modules.fangyi.service.impl.PersonnelOutServiceImpl.pageList(PersonnelOutServiceImpl.java:<span class="number">22</span>)</span><br><span class="line">	at org.springblade.modules.fangyi.service.impl.PersonnelOutServiceImpl$$FastClassBySpringCGLIB$$f13e09e8.invoke(&lt;generated&gt;)</span><br><span class="line">	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:<span class="number">218</span>)</span><br><span class="line">	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:<span class="number">687</span>)</span><br><span class="line">	at org.springblade.modules.fangyi.service.impl.PersonnelOutServiceImpl$$EnhancerBySpringCGLIB$$eefa72e6.pageList(&lt;generated&gt;)</span><br><span class="line">	at org.springblade.modules.fangyi.controller.PersonnelOutController.list(PersonnelOutController.java:<span class="number">69</span>)</span><br><span class="line">	at org.springblade.modules.fangyi.controller.PersonnelOutController$$FastClassBySpringCGLIB$$c2a6df06.invoke(&lt;generated&gt;)</span><br><span class="line">	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:<span class="number">218</span>)</span><br><span class="line">	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:<span class="number">771</span>)</span><br><span class="line">	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:<span class="number">163</span>)</span><br><span class="line">	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:<span class="number">749</span>)</span><br><span class="line">	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:<span class="number">88</span>)</span><br><span class="line">	at org.springblade.core.log.aspect.RequestLogAspect.aroundApi(RequestLogAspect.java:<span class="number">112</span>)</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:<span class="number">62</span>)</span><br><span class="line">	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:<span class="number">43</span>)</span><br><span class="line">	at java.lang.reflect.Method.invoke(Method.java:<span class="number">498</span>)</span><br><span class="line">	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:<span class="number">644</span>)</span><br><span class="line">	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:<span class="number">633</span>)</span><br><span class="line">	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:<span class="number">70</span>)</span><br><span class="line">	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:<span class="number">175</span>)</span><br><span class="line">	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:<span class="number">749</span>)</span><br><span class="line">	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:<span class="number">95</span>)</span><br><span class="line">	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:<span class="number">186</span>)</span><br><span class="line">	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:<span class="number">749</span>)</span><br><span class="line">	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:<span class="number">691</span>)</span><br><span class="line">	at org.springblade.modules.fangyi.controller.PersonnelOutController$$EnhancerBySpringCGLIB$$5fd7e86c.list(&lt;generated&gt;)</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:<span class="number">62</span>)</span><br><span class="line">	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:<span class="number">43</span>)</span><br><span class="line">	at java.lang.reflect.Method.invoke(Method.java:<span class="number">498</span>)</span><br><span class="line">	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:<span class="number">190</span>)</span><br><span class="line">	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:<span class="number">138</span>)</span><br><span class="line">	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:<span class="number">105</span>)</span><br><span class="line">	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:<span class="number">878</span>)</span><br><span class="line">	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:<span class="number">792</span>)</span><br><span class="line">	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:<span class="number">87</span>)</span><br><span class="line">	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:<span class="number">1040</span>)</span><br><span class="line">	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:<span class="number">943</span>)</span><br><span class="line">	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:<span class="number">1006</span>)</span><br><span class="line">	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:<span class="number">898</span>)</span><br><span class="line">	at javax.servlet.http.HttpServlet.service(HttpServlet.java:<span class="number">497</span>)</span><br><span class="line">	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:<span class="number">883</span>)</span><br><span class="line">	at javax.servlet.http.HttpServlet.service(HttpServlet.java:<span class="number">584</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.ServletHandler.handleRequest(ServletHandler.java:<span class="number">74</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:<span class="number">129</span>)</span><br><span class="line">	at org.springblade.core.log.filter.LogTraceFilter.doFilter(LogTraceFilter.java:<span class="number">39</span>)</span><br><span class="line">	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:<span class="number">61</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:<span class="number">131</span>)</span><br><span class="line">	at org.springblade.core.boot.request.BladeRequestFilter.doFilter(BladeRequestFilter.java:<span class="number">58</span>)</span><br><span class="line">	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:<span class="number">61</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:<span class="number">131</span>)</span><br><span class="line">	at com.alibaba.druid.support.http.WebStatFilter.doFilter(WebStatFilter.java:<span class="number">124</span>)</span><br><span class="line">	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:<span class="number">61</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:<span class="number">131</span>)</span><br><span class="line">	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:<span class="number">100</span>)</span><br><span class="line">	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:<span class="number">119</span>)</span><br><span class="line">	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:<span class="number">61</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:<span class="number">131</span>)</span><br><span class="line">	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:<span class="number">93</span>)</span><br><span class="line">	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:<span class="number">119</span>)</span><br><span class="line">	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:<span class="number">61</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:<span class="number">131</span>)</span><br><span class="line">	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:<span class="number">201</span>)</span><br><span class="line">	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:<span class="number">119</span>)</span><br><span class="line">	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:<span class="number">61</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:<span class="number">131</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.FilterHandler.handleRequest(FilterHandler.java:<span class="number">84</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.security.ServletSecurityRoleHandler.handleRequest(ServletSecurityRoleHandler.java:<span class="number">62</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.ServletChain$<span class="number">1.</span>handleRequest(ServletChain.java:<span class="number">68</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.ServletDispatchingHandler.handleRequest(ServletDispatchingHandler.java:<span class="number">36</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.RedirectDirHandler.handleRequest(RedirectDirHandler.java:<span class="number">68</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.security.SSLInformationAssociationHandler.handleRequest(SSLInformationAssociationHandler.java:<span class="number">111</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.security.ServletAuthenticationCallHandler.handleRequest(ServletAuthenticationCallHandler.java:<span class="number">57</span>)</span><br><span class="line">	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:<span class="number">43</span>)</span><br><span class="line">	at io.undertow.security.handlers.AbstractConfidentialityHandler.handleRequest(AbstractConfidentialityHandler.java:<span class="number">46</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.security.ServletConfidentialityConstraintHandler.handleRequest(ServletConfidentialityConstraintHandler.java:<span class="number">64</span>)</span><br><span class="line">	at io.undertow.security.handlers.AuthenticationMechanismsHandler.handleRequest(AuthenticationMechanismsHandler.java:<span class="number">60</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.security.CachedAuthenticatedSessionHandler.handleRequest(CachedAuthenticatedSessionHandler.java:<span class="number">77</span>)</span><br><span class="line">	at io.undertow.security.handlers.AbstractSecurityContextAssociationHandler.handleRequest(AbstractSecurityContextAssociationHandler.java:<span class="number">43</span>)</span><br><span class="line">	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:<span class="number">43</span>)</span><br><span class="line">	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:<span class="number">43</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.ServletInitialHandler.handleFirstRequest(ServletInitialHandler.java:<span class="number">269</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.ServletInitialHandler.access$<span class="number">100</span>(ServletInitialHandler.java:<span class="number">78</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.ServletInitialHandler$<span class="number">2.</span>call(ServletInitialHandler.java:<span class="number">133</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.ServletInitialHandler$<span class="number">2.</span>call(ServletInitialHandler.java:<span class="number">130</span>)</span><br><span class="line">	at io.undertow.servlet.core.ServletRequestContextThreadSetupAction$<span class="number">1.</span>call(ServletRequestContextThreadSetupAction.java:<span class="number">48</span>)</span><br><span class="line">	at io.undertow.servlet.core.ContextClassLoaderSetupAction$<span class="number">1.</span>call(ContextClassLoaderSetupAction.java:<span class="number">43</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.ServletInitialHandler.dispatchRequest(ServletInitialHandler.java:<span class="number">249</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.ServletInitialHandler.access$<span class="number">000</span>(ServletInitialHandler.java:<span class="number">78</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.ServletInitialHandler$<span class="number">1.</span>handleRequest(ServletInitialHandler.java:<span class="number">99</span>)</span><br><span class="line">	at io.undertow.server.Connectors.executeRootHandler(Connectors.java:<span class="number">376</span>)</span><br><span class="line">	at io.undertow.server.HttpServerExchange$<span class="number">1.</span>run(HttpServerExchange.java:<span class="number">830</span>)</span><br><span class="line">	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:<span class="number">1149</span>)</span><br><span class="line">	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:<span class="number">624</span>)</span><br><span class="line">	at java.lang.Thread.run(Thread.java:<span class="number">748</span>)</span><br><span class="line">Caused by: org.apache.ibatis.exceptions.PersistenceException: </span><br><span class="line">### Error querying database.  Cause: com.baomidou.mybatisplus.core.exceptions.MybatisPlusException: Failed to process, Error SQL: xxxxxxxxxxxxxxxxxxxxxxx</span><br><span class="line">### Cause: com.baomidou.mybatisplus.core.exceptions.MybatisPlusException: Failed to process, Error SQL: xxxxxxxxxxxxxxxxxxxxxxxxxx</span><br><span class="line">	at org.apache.ibatis.exceptions.ExceptionFactory.wrapException(ExceptionFactory.java:<span class="number">30</span>)</span><br><span class="line">	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:<span class="number">149</span>)</span><br><span class="line">	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:<span class="number">140</span>)</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:<span class="number">62</span>)</span><br><span class="line">	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:<span class="number">43</span>)</span><br><span class="line">	at java.lang.reflect.Method.invoke(Method.java:<span class="number">498</span>)</span><br><span class="line">	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:<span class="number">427</span>)</span><br><span class="line">	... <span class="number">103</span> common frames omitted</span><br><span class="line">Caused by: com.baomidou.mybatisplus.core.exceptions.MybatisPlusException: Failed to process, Error SQL: xxxxxxxxxxxxxxxxxxxx</span><br><span class="line">	at com.baomidou.mybatisplus.core.toolkit.ExceptionUtils.mpe(ExceptionUtils.java:<span class="number">39</span>)</span><br><span class="line">	at com.baomidou.mybatisplus.extension.parser.JsqlParserSupport.parserSingle(JsqlParserSupport.java:<span class="number">52</span>)</span><br><span class="line">	at com.baomidou.mybatisplus.extension.plugins.inner.TenantLineInnerInterceptor.beforeQuery(TenantLineInnerInterceptor.java:<span class="number">70</span>)</span><br><span class="line">	at com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor.intercept(MybatisPlusInterceptor.java:<span class="number">78</span>)</span><br><span class="line">	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:<span class="number">61</span>)</span><br><span class="line">	at com.sun.proxy.$Proxy271.query(Unknown Source)</span><br><span class="line">	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:<span class="number">147</span>)</span><br><span class="line">	... <span class="number">109</span> common frames omitted</span><br><span class="line">Caused by: net.sf.jsqlparser.parser.ParseException: Encountered unexpected token: <span class="string">&quot;SELECT&quot;</span> &lt;K_SELECT&gt;</span><br><span class="line">    at line <span class="number">1</span>, column <span class="number">336.</span></span><br><span class="line"></span><br><span class="line">Was expecting one of:</span><br><span class="line"></span><br><span class="line">    <span class="string">&quot;!&quot;</span></span><br><span class="line">    <span class="string">&quot;(&quot;</span></span><br><span class="line">    <span class="string">&quot;+&quot;</span></span><br><span class="line">    <span class="string">&quot;-&quot;</span></span><br><span class="line">    <span class="string">&quot;?&quot;</span></span><br><span class="line">    <span class="string">&quot;@&quot;</span></span><br><span class="line">    <span class="string">&quot;@@&quot;</span></span><br><span class="line">    <span class="string">&quot;ACTION&quot;</span></span><br><span class="line">    <span class="string">&quot;ANY&quot;</span></span><br><span class="line">    <span class="string">&quot;BYTE&quot;</span></span><br><span class="line">    <span class="string">&quot;CASCADE&quot;</span></span><br><span class="line">    <span class="string">&quot;CASE&quot;</span></span><br><span class="line">    <span class="string">&quot;CAST&quot;</span></span><br><span class="line">    <span class="string">&quot;CHANGE&quot;</span></span><br><span class="line">    <span class="string">&quot;CHAR&quot;</span></span><br><span class="line">    <span class="string">&quot;CHARACTER&quot;</span></span><br><span class="line">    <span class="string">&quot;COLUMN&quot;</span></span><br><span class="line">    <span class="string">&quot;COLUMNS&quot;</span></span><br><span class="line">    <span class="string">&quot;COMMENT&quot;</span></span><br><span class="line">    <span class="string">&quot;COMMIT&quot;</span></span><br><span class="line">    <span class="string">&quot;CREATE&quot;</span></span><br><span class="line">    <span class="string">&quot;CURRENT&quot;</span></span><br><span class="line">    <span class="string">&quot;CYCLE&quot;</span></span><br><span class="line">    <span class="string">&quot;DESC&quot;</span></span><br><span class="line">    <span class="string">&quot;DESCRIBE&quot;</span></span><br><span class="line">    <span class="string">&quot;DISABLE&quot;</span></span><br><span class="line">    <span class="string">&quot;DIV&quot;</span></span><br><span class="line">    <span class="string">&quot;DO&quot;</span></span><br><span class="line">    <span class="string">&quot;DOUBLE&quot;</span></span><br><span class="line">    <span class="string">&quot;DUPLICATE&quot;</span></span><br><span class="line">    <span class="string">&quot;ENABLE&quot;</span></span><br><span class="line">    <span class="string">&quot;END&quot;</span></span><br><span class="line">    <span class="string">&quot;EXCLUDE&quot;</span></span><br><span class="line">    <span class="string">&quot;EXTRACT&quot;</span></span><br><span class="line">    <span class="string">&quot;FALSE&quot;</span></span><br><span class="line">    <span class="string">&quot;FIRST&quot;</span></span><br><span class="line">    <span class="string">&quot;FN&quot;</span></span><br><span class="line">    <span class="string">&quot;FOLLOWING&quot;</span></span><br><span class="line">    <span class="string">&quot;FORMAT&quot;</span></span><br><span class="line">    <span class="string">&quot;GROUP&quot;</span></span><br><span class="line">    <span class="string">&quot;GROUP_CONCAT&quot;</span></span><br><span class="line">    <span class="string">&quot;IF&quot;</span></span><br><span class="line">    <span class="string">&quot;INDEX&quot;</span></span><br><span class="line">    <span class="string">&quot;INSERT&quot;</span></span><br><span class="line">    <span class="string">&quot;INTERVAL&quot;</span></span><br><span class="line">    <span class="string">&quot;ISNULL&quot;</span></span><br><span class="line">    <span class="string">&quot;KEY&quot;</span></span><br><span class="line">    <span class="string">&quot;LAST&quot;</span></span><br><span class="line">    <span class="string">&quot;LEFT&quot;</span></span><br><span class="line">    <span class="string">&quot;LIMIT&quot;</span></span><br><span class="line">    <span class="string">&quot;MATERIALIZED&quot;</span></span><br><span class="line">    <span class="string">&quot;NEXTVAL&quot;</span></span><br><span class="line">    <span class="string">&quot;NO&quot;</span></span><br><span class="line">    <span class="string">&quot;NOLOCK&quot;</span></span><br><span class="line">    <span class="string">&quot;NOT&quot;</span></span><br><span class="line">    <span class="string">&quot;NULL&quot;</span></span><br><span class="line">    <span class="string">&quot;NULLS&quot;</span></span><br><span class="line">    <span class="string">&quot;OF&quot;</span></span><br><span class="line">    <span class="string">&quot;OFFSET&quot;</span></span><br><span class="line">    <span class="string">&quot;ON&quot;</span></span><br><span class="line">    <span class="string">&quot;OPEN&quot;</span></span><br><span class="line">    <span class="string">&quot;OPTIMIZE&quot;</span></span><br><span class="line">    <span class="string">&quot;ORDER&quot;</span></span><br><span class="line">    <span class="string">&quot;OVER&quot;</span></span><br><span class="line">    <span class="string">&quot;PARTITION&quot;</span></span><br><span class="line">    <span class="string">&quot;PATH&quot;</span></span><br><span class="line">    <span class="string">&quot;PERCENT&quot;</span></span><br><span class="line">    <span class="string">&quot;PRECISION&quot;</span></span><br><span class="line">    <span class="string">&quot;PRIMARY&quot;</span></span><br><span class="line">    <span class="string">&quot;PRIOR&quot;</span></span><br><span class="line">    <span class="string">&quot;PROCEDURE&quot;</span></span><br><span class="line">    <span class="string">&quot;PUBLIC&quot;</span></span><br><span class="line">    <span class="string">&quot;RANGE&quot;</span></span><br><span class="line">    <span class="string">&quot;READ&quot;</span></span><br><span class="line">    <span class="string">&quot;REPLACE&quot;</span></span><br><span class="line">    <span class="string">&quot;RIGHT&quot;</span></span><br><span class="line">    <span class="string">&quot;ROW&quot;</span></span><br><span class="line">    <span class="string">&quot;ROWS&quot;</span></span><br><span class="line">    <span class="string">&quot;SCHEMA&quot;</span></span><br><span class="line">    <span class="string">&quot;SEPARATOR&quot;</span></span><br><span class="line">    <span class="string">&quot;SEQUENCE&quot;</span></span><br><span class="line">    <span class="string">&quot;SESSION&quot;</span></span><br><span class="line">    <span class="string">&quot;SET&quot;</span></span><br><span class="line">    <span class="string">&quot;SIBLINGS&quot;</span></span><br><span class="line">    <span class="string">&quot;SIZE&quot;</span></span><br><span class="line">    <span class="string">&quot;START&quot;</span></span><br><span class="line">    <span class="string">&quot;TABLE&quot;</span></span><br><span class="line">    <span class="string">&quot;TABLES&quot;</span></span><br><span class="line">    <span class="string">&quot;TEMP&quot;</span></span><br><span class="line">    <span class="string">&quot;TEMPORARY&quot;</span></span><br><span class="line">    <span class="string">&quot;TO&quot;</span></span><br><span class="line">    <span class="string">&quot;TOP&quot;</span></span><br><span class="line">    <span class="string">&quot;TRUE&quot;</span></span><br><span class="line">    <span class="string">&quot;TRUNCATE&quot;</span></span><br><span class="line">    <span class="string">&quot;TYPE&quot;</span></span><br><span class="line">    <span class="string">&quot;UNSIGNED&quot;</span></span><br><span class="line">    <span class="string">&quot;VALIDATE&quot;</span></span><br><span class="line">    <span class="string">&quot;VALUE&quot;</span></span><br><span class="line">    <span class="string">&quot;VALUES&quot;</span></span><br><span class="line">    <span class="string">&quot;VIEW&quot;</span></span><br><span class="line">    <span class="string">&quot;XML&quot;</span></span><br><span class="line">    <span class="string">&quot;XMLSERIALIZE&quot;</span></span><br><span class="line">    <span class="string">&quot;ZONE&quot;</span></span><br><span class="line">    <span class="string">&quot;&#123;d&quot;</span></span><br><span class="line">    <span class="string">&quot;&#123;t&quot;</span></span><br><span class="line">    <span class="string">&quot;&#123;ts&quot;</span></span><br><span class="line">    <span class="string">&quot;~&quot;</span></span><br><span class="line">    &lt;K_DATETIMELITERAL&gt;</span><br><span class="line">    &lt;K_DATE_LITERAL&gt;</span><br><span class="line">    &lt;K_TIME_KEY_EXPR&gt;</span><br><span class="line">    &lt;S_CHAR_LITERAL&gt;</span><br><span class="line">    &lt;S_DOUBLE&gt;</span><br><span class="line">    &lt;S_HEX&gt;</span><br><span class="line">    &lt;S_IDENTIFIER&gt;</span><br><span class="line">    &lt;S_LONG&gt;</span><br><span class="line">    &lt;S_QUOTED_IDENTIFIER&gt;</span><br><span class="line"></span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.generateParseException(CCJSqlParser.java:<span class="number">26538</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.jj_consume_token(CCJSqlParser.java:<span class="number">26377</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.PrimaryExpression(CCJSqlParser.java:<span class="number">11012</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.BitwiseXor(CCJSqlParser.java:<span class="number">10671</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.MultiplicativeExpression(CCJSqlParser.java:<span class="number">10624</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.AdditiveExpression(CCJSqlParser.java:<span class="number">10587</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.BitwiseAndOr(CCJSqlParser.java:<span class="number">10533</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.ConcatExpression(CCJSqlParser.java:<span class="number">10509</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.SimpleExpression(CCJSqlParser.java:<span class="number">10495</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.PrimaryExpression(CCJSqlParser.java:<span class="number">11005</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.BitwiseXor(CCJSqlParser.java:<span class="number">10671</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.MultiplicativeExpression(CCJSqlParser.java:<span class="number">10624</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.AdditiveExpression(CCJSqlParser.java:<span class="number">10587</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.BitwiseAndOr(CCJSqlParser.java:<span class="number">10533</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.ConcatExpression(CCJSqlParser.java:<span class="number">10509</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.SimpleExpression(CCJSqlParser.java:<span class="number">10495</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.SQLCondition(CCJSqlParser.java:<span class="number">9195</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.Condition(CCJSqlParser.java:<span class="number">8697</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.SelectExpressionItem(CCJSqlParser.java:<span class="number">4798</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.SelectItem(CCJSqlParser.java:<span class="number">5033</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.SelectItemsList(CCJSqlParser.java:<span class="number">4789</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.PlainSelect(CCJSqlParser.java:<span class="number">4273</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.SetOperationList(CCJSqlParser.java:<span class="number">4496</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.SelectBody(CCJSqlParser.java:<span class="number">4163</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.Select(CCJSqlParser.java:<span class="number">4158</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.SingleStatement(CCJSqlParser.java:<span class="number">130</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.Statement(CCJSqlParser.java:<span class="number">81</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParserUtil.parseStatement(CCJSqlParserUtil.java:<span class="number">163</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParserUtil.parse(CCJSqlParserUtil.java:<span class="number">59</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParserUtil.parse(CCJSqlParserUtil.java:<span class="number">37</span>)</span><br><span class="line">	at com.baomidou.mybatisplus.extension.parser.JsqlParserSupport.parserSingle(JsqlParserSupport.java:<span class="number">49</span>)</span><br><span class="line">	... <span class="number">114</span> common frames omitted</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>根据异常前两行可以看到<code>Cause: com.baomidou.mybatisplus.core.exceptions.MybatisPlusException</code>是MybatisPlus在执行过程中出错，错误信息<code>Failed to process, Error SQL: xxxxxx</code>，难道是SQL错了？</p>
+</blockquote>
+<blockquote>
+<p>在Navicat中执行SQL是正常的，所以SQL语句没有问题，继续往下看,找到另外一个错误<code>net.sf.jsqlparser.parser.ParseException</code>sql解析错误</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Caused by: com.baomidou.mybatisplus.core.exceptions.MybatisPlusException: Failed to process, Error SQL: xxxxxxxxxxxxxxxxxxxxxxxx</span><br><span class="line">	at com.baomidou.mybatisplus.core.toolkit.ExceptionUtils.mpe(ExceptionUtils.java:39)</span><br><span class="line">	at com.baomidou.mybatisplus.extension.parser.JsqlParserSupport.parserSingle(JsqlParserSupport.java:52)</span><br><span class="line">	at com.baomidou.mybatisplus.extension.plugins.inner.TenantLineInnerInterceptor.beforeQuery(TenantLineInnerInterceptor.java:70)</span><br><span class="line">	at com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor.intercept(MybatisPlusInterceptor.java:78)</span><br><span class="line">	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:61)</span><br><span class="line">	at com.sun.proxy.$Proxy271.query(Unknown Source)</span><br><span class="line">	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:147)</span><br><span class="line">	... 109 common frames omitted</span><br><span class="line">Caused by: net.sf.jsqlparser.parser.ParseException: Encountered unexpected token: &quot;SELECT&quot; &lt;K_SELECT&gt;</span><br><span class="line">    at line 1, column 336.</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在报错行的上方几行处，找到几个类<code>ExceptionUtils.java</code>、<code>JsqlParserSupport.java</code>和<code>TenantLineInnerInterceptor.java</code>,在TenantLineInnerInterceptor这个类拦截处理时出错。</p>
+</blockquote>
+<blockquote>
+<p>官网对于这个类的解释 <a target="_blank" rel="noopener" href="https://mp.baomidou.com/guide/interceptor.html#mybatisplusinterceptor">MybatisPlusInterceptor</a></p>
+</blockquote>
+<blockquote>
+<p>解决：由官网描述可以看到使用注解 @InterceptorIgnore 可以忽略拦截。所以在Mapper执行的方法上加上该注解<code>@InterceptorIgnore(tenantLine = &quot;true&quot;)</code>，测试成功。<br/><br>但是在执行分页工具在执行count检索的时候又报错，如下：</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2021</span>-<span class="number">06</span>-<span class="number">19</span> <span class="number">15</span>:<span class="number">18</span>:<span class="number">42.139</span>  WARN <span class="number">20208</span> --- [  XNIO-<span class="number">1</span> task-<span class="number">4</span>] o.s.c.m.p.BladePaginationInterceptor     : optimize <span class="built_in">this</span> sql to a count sql has exception, sql:<span class="string">&quot;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&quot;</span>, exception:</span><br><span class="line">net.sf.jsqlparser.parser.ParseException: Encountered unexpected token: <span class="string">&quot;SELECT&quot;</span> &lt;K_SELECT&gt;</span><br><span class="line">    at line <span class="number">1</span>, column <span class="number">336.</span></span><br><span class="line"></span><br><span class="line">Was expecting one of:</span><br><span class="line"></span><br><span class="line">    <span class="string">&quot;!&quot;</span></span><br><span class="line">    <span class="string">&quot;(&quot;</span></span><br><span class="line">    <span class="string">&quot;+&quot;</span></span><br><span class="line">    <span class="string">&quot;-&quot;</span></span><br><span class="line">    <span class="string">&quot;?&quot;</span></span><br><span class="line">    <span class="string">&quot;@&quot;</span></span><br><span class="line">    <span class="string">&quot;@@&quot;</span></span><br><span class="line">    <span class="string">&quot;ACTION&quot;</span></span><br><span class="line">    <span class="string">&quot;ANY&quot;</span></span><br><span class="line">    <span class="string">&quot;BYTE&quot;</span></span><br><span class="line">    <span class="string">&quot;CASCADE&quot;</span></span><br><span class="line">    <span class="string">&quot;CASE&quot;</span></span><br><span class="line">    <span class="string">&quot;CAST&quot;</span></span><br><span class="line">    <span class="string">&quot;CHANGE&quot;</span></span><br><span class="line">    <span class="string">&quot;CHAR&quot;</span></span><br><span class="line">    <span class="string">&quot;CHARACTER&quot;</span></span><br><span class="line">    <span class="string">&quot;COLUMN&quot;</span></span><br><span class="line">    <span class="string">&quot;COLUMNS&quot;</span></span><br><span class="line">    <span class="string">&quot;COMMENT&quot;</span></span><br><span class="line">    <span class="string">&quot;COMMIT&quot;</span></span><br><span class="line">    <span class="string">&quot;CREATE&quot;</span></span><br><span class="line">    <span class="string">&quot;CURRENT&quot;</span></span><br><span class="line">    <span class="string">&quot;CYCLE&quot;</span></span><br><span class="line">    <span class="string">&quot;DESC&quot;</span></span><br><span class="line">    <span class="string">&quot;DESCRIBE&quot;</span></span><br><span class="line">    <span class="string">&quot;DISABLE&quot;</span></span><br><span class="line">    <span class="string">&quot;DIV&quot;</span></span><br><span class="line">    <span class="string">&quot;DO&quot;</span></span><br><span class="line">    <span class="string">&quot;DOUBLE&quot;</span></span><br><span class="line">    <span class="string">&quot;DUPLICATE&quot;</span></span><br><span class="line">    <span class="string">&quot;ENABLE&quot;</span></span><br><span class="line">    <span class="string">&quot;END&quot;</span></span><br><span class="line">    <span class="string">&quot;EXCLUDE&quot;</span></span><br><span class="line">    <span class="string">&quot;EXTRACT&quot;</span></span><br><span class="line">    <span class="string">&quot;FALSE&quot;</span></span><br><span class="line">    <span class="string">&quot;FIRST&quot;</span></span><br><span class="line">    <span class="string">&quot;FN&quot;</span></span><br><span class="line">    <span class="string">&quot;FOLLOWING&quot;</span></span><br><span class="line">    <span class="string">&quot;FORMAT&quot;</span></span><br><span class="line">    <span class="string">&quot;GROUP&quot;</span></span><br><span class="line">    <span class="string">&quot;GROUP_CONCAT&quot;</span></span><br><span class="line">    <span class="string">&quot;IF&quot;</span></span><br><span class="line">    <span class="string">&quot;INDEX&quot;</span></span><br><span class="line">    <span class="string">&quot;INSERT&quot;</span></span><br><span class="line">    <span class="string">&quot;INTERVAL&quot;</span></span><br><span class="line">    <span class="string">&quot;ISNULL&quot;</span></span><br><span class="line">    <span class="string">&quot;KEY&quot;</span></span><br><span class="line">    <span class="string">&quot;LAST&quot;</span></span><br><span class="line">    <span class="string">&quot;LEFT&quot;</span></span><br><span class="line">    <span class="string">&quot;LIMIT&quot;</span></span><br><span class="line">    <span class="string">&quot;MATERIALIZED&quot;</span></span><br><span class="line">    <span class="string">&quot;NEXTVAL&quot;</span></span><br><span class="line">    <span class="string">&quot;NO&quot;</span></span><br><span class="line">    <span class="string">&quot;NOLOCK&quot;</span></span><br><span class="line">    <span class="string">&quot;NOT&quot;</span></span><br><span class="line">    <span class="string">&quot;NULL&quot;</span></span><br><span class="line">    <span class="string">&quot;NULLS&quot;</span></span><br><span class="line">    <span class="string">&quot;OF&quot;</span></span><br><span class="line">    <span class="string">&quot;OFFSET&quot;</span></span><br><span class="line">    <span class="string">&quot;ON&quot;</span></span><br><span class="line">    <span class="string">&quot;OPEN&quot;</span></span><br><span class="line">    <span class="string">&quot;OPTIMIZE&quot;</span></span><br><span class="line">    <span class="string">&quot;ORDER&quot;</span></span><br><span class="line">    <span class="string">&quot;OVER&quot;</span></span><br><span class="line">    <span class="string">&quot;PARTITION&quot;</span></span><br><span class="line">    <span class="string">&quot;PATH&quot;</span></span><br><span class="line">    <span class="string">&quot;PERCENT&quot;</span></span><br><span class="line">    <span class="string">&quot;PRECISION&quot;</span></span><br><span class="line">    <span class="string">&quot;PRIMARY&quot;</span></span><br><span class="line">    <span class="string">&quot;PRIOR&quot;</span></span><br><span class="line">    <span class="string">&quot;PROCEDURE&quot;</span></span><br><span class="line">    <span class="string">&quot;PUBLIC&quot;</span></span><br><span class="line">    <span class="string">&quot;RANGE&quot;</span></span><br><span class="line">    <span class="string">&quot;READ&quot;</span></span><br><span class="line">    <span class="string">&quot;REPLACE&quot;</span></span><br><span class="line">    <span class="string">&quot;RIGHT&quot;</span></span><br><span class="line">    <span class="string">&quot;ROW&quot;</span></span><br><span class="line">    <span class="string">&quot;ROWS&quot;</span></span><br><span class="line">    <span class="string">&quot;SCHEMA&quot;</span></span><br><span class="line">    <span class="string">&quot;SEPARATOR&quot;</span></span><br><span class="line">    <span class="string">&quot;SEQUENCE&quot;</span></span><br><span class="line">    <span class="string">&quot;SESSION&quot;</span></span><br><span class="line">    <span class="string">&quot;SET&quot;</span></span><br><span class="line">    <span class="string">&quot;SIBLINGS&quot;</span></span><br><span class="line">    <span class="string">&quot;SIZE&quot;</span></span><br><span class="line">    <span class="string">&quot;START&quot;</span></span><br><span class="line">    <span class="string">&quot;TABLE&quot;</span></span><br><span class="line">    <span class="string">&quot;TABLES&quot;</span></span><br><span class="line">    <span class="string">&quot;TEMP&quot;</span></span><br><span class="line">    <span class="string">&quot;TEMPORARY&quot;</span></span><br><span class="line">    <span class="string">&quot;TO&quot;</span></span><br><span class="line">    <span class="string">&quot;TOP&quot;</span></span><br><span class="line">    <span class="string">&quot;TRUE&quot;</span></span><br><span class="line">    <span class="string">&quot;TRUNCATE&quot;</span></span><br><span class="line">    <span class="string">&quot;TYPE&quot;</span></span><br><span class="line">    <span class="string">&quot;UNSIGNED&quot;</span></span><br><span class="line">    <span class="string">&quot;VALIDATE&quot;</span></span><br><span class="line">    <span class="string">&quot;VALUE&quot;</span></span><br><span class="line">    <span class="string">&quot;VALUES&quot;</span></span><br><span class="line">    <span class="string">&quot;VIEW&quot;</span></span><br><span class="line">    <span class="string">&quot;XML&quot;</span></span><br><span class="line">    <span class="string">&quot;XMLSERIALIZE&quot;</span></span><br><span class="line">    <span class="string">&quot;ZONE&quot;</span></span><br><span class="line">    <span class="string">&quot;&#123;d&quot;</span></span><br><span class="line">    <span class="string">&quot;&#123;t&quot;</span></span><br><span class="line">    <span class="string">&quot;&#123;ts&quot;</span></span><br><span class="line">    <span class="string">&quot;~&quot;</span></span><br><span class="line">    &lt;K_DATETIMELITERAL&gt;</span><br><span class="line">    &lt;K_DATE_LITERAL&gt;</span><br><span class="line">    &lt;K_TIME_KEY_EXPR&gt;</span><br><span class="line">    &lt;S_CHAR_LITERAL&gt;</span><br><span class="line">    &lt;S_DOUBLE&gt;</span><br><span class="line">    &lt;S_HEX&gt;</span><br><span class="line">    &lt;S_IDENTIFIER&gt;</span><br><span class="line">    &lt;S_LONG&gt;</span><br><span class="line">    &lt;S_QUOTED_IDENTIFIER&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>根据以上报错信息找到 <code>PaginationInnerInterceptor.java:343</code><br><img src="https://raw.githubusercontent.com/MemoryL7/images-hosting/master/PaginationInnerInterceptor.5kdhlny0fio0.png" alt="PaginationInnerInterceptor"><br>可以看到在方法开始前判断是否优化count语句，只要将该值设置为false就行了，往上一级找到该属性在Page类中，就是我们使用Mybatis Plus分页检索时，传入的Page参数<br/><br>设置Page中的<code>optimizeCountSql</code>为<code>false</code>即可。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/SpringBoot/" rel="tag"># SpringBoot</a>
+              <a href="/tags/MyBatisPlus/" rel="tag"># MyBatisPlus</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/8a9a0a6107d3/" rel="prev" title="IDEA 项目结构出现 0&#37; classes,0&#37; lines covered解决方法">
+                  <i class="fa fa-chevron-left"></i> IDEA 项目结构出现 0&#37; classes,0&#37; lines covered解决方法
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/417c5a5c4a50/" rel="next" title="MySql  too many connections 解决方法">
+                  MySql  too many connections 解决方法 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC81MzExMi8yOTU4OA=="></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2021 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MemoryL7</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://unpkg.com/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+<script src="//code.tidio.co/mmwlne2g10lcv3planxw8ykdggryoqy2.js"></script>
+<script src="/js/third-party/chat/tidio.js"></script>
+
+
+
+
+
+  
+
+
+
+
+<script src="/js/third-party/comments/livere.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Docker 常用操作</title>
+    <url>/bc903be70feb/</url>
+    <content><![CDATA[<h3 id="Docker-常用命令，防止忘记"><a href="#Docker-常用命令，防止忘记" class="headerlink" title="Docker 常用命令，防止忘记"></a>Docker 常用命令，防止忘记</h3><h4 id="docker-pull"><a href="#docker-pull" class="headerlink" title="docker pull"></a>docker pull</h4><blockquote>
+<p>拉取命令 <code>name</code>对应docker名称  <code>version</code>对应版本</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker pull [name]:[version]</span><br></pre></td></tr></table></figure>
+
+<h4 id="docker-cp"><a href="#docker-cp" class="headerlink" title="docker cp"></a>docker cp</h4><blockquote>
+<p>拷贝命令 用于容器与主机之间的数据拷贝</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">将主机/www/runoob目录拷贝到容器96f7f14e99ab的/www目录下。</span><br><span class="line">docker cp /www/runoob 96f7f14e99ab:/www/</span><br><span class="line"></span><br><span class="line">将主机/www/runoob目录拷贝到容器96f7f14e99ab中，目录重命名为www。</span><br><span class="line">docker cp /www/runoob 96f7f14e99ab:/www</span><br><span class="line"></span><br><span class="line">将容器96f7f14e99ab的/www目录拷贝到主机的/tmp目录中。</span><br><span class="line">docker cp  96f7f14e99ab:/www /tmp/</span><br></pre></td></tr></table></figure>
+
+<h4 id="docker-build"><a href="#docker-build" class="headerlink" title="docker build"></a>docker build</h4><blockquote>
+<p>通过Dockerfile创建docker镜像</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker build -t imageName:version .</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>docker</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Docker占用过多空间清理</title>
+    <url>/daca90f6fb76/</url>
+    <content><![CDATA[<blockquote>
+<p>通过Linux磁盘占用命令发现，docker下日志记录占用最多的空间比较多，路径如下</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[root@ecs-a009 /]# cd /var/lib/docker/containers</span><br><span class="line">[root@ecs-a009 containers]# ll</span><br><span class="line">total 80</span><br><span class="line">drwx-----x 4 root root 4096 May 22 15:47 03e0e69b8878225b25cdaeedad4403500f1006c31320a832b484e92c4ec287b4</span><br><span class="line">drwx-----x 4 root root 4096 May 22 15:38 0e38d398812f326fc578688bb68588dbf1bbfa5575f2985624f4100371c83ff6</span><br><span class="line">drwx-----x 4 root root 4096 Jun 10 11:43 159e437009311bf95266e7082f12a5d6b83797a60f942f045a1f765788c5fe97</span><br><span class="line">[root@ecs-a009 containers]# </span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>通过脚本清理docker日志文件内容</p>
+</blockquote>
+<span id="more"></span>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">vi clean_docker_log.sh</span><br><span class="line">echo &quot;======== start clean docker containers logs ========&quot;</span><br><span class="line">logs=$(find /var/lib/docker/containers/ -name *-json.log)</span><br><span class="line">for log in $logs</span><br><span class="line">do</span><br><span class="line">echo &quot;clean logs : $log&quot;</span><br><span class="line">cat /dev/null &gt; $log</span><br><span class="line">done</span><br><span class="line">echo &quot;======== end clean docker containers logs ========&quot;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>保存脚本后执行即可。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>docker</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Idea SpringBoot 启动失败 Command line is too long</title>
+    <url>/1bbd0735d62c/</url>
+    <content><![CDATA[<h4 id="使用idea启动项目报错如下："><a href="#使用idea启动项目报错如下：" class="headerlink" title="使用idea启动项目报错如下："></a>使用idea启动项目报错如下：</h4><p><img src="https://raw.githubusercontent.com/MemoryL7/images-hosting/master/ideaSpringBootRunFaild.5eodzdvuk4o0.png" alt="ideaSpringBootRunFaild"></p>
+<span id="more"></span>
+<h4 id="进行如下设置解决"><a href="#进行如下设置解决" class="headerlink" title="进行如下设置解决"></a>进行如下设置解决</h4><p><img src="https://raw.githubusercontent.com/MemoryL7/images-hosting/master/application%E8%AE%BE%E7%BD%AE.5ehzks07wto0.png" alt="application设置"></p>
+]]></content>
+      <categories>
+        <category>SpringBoot</category>
+      </categories>
+      <tags>
+        <tag>idea</tag>
+        <tag>SpringBoot</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ELK - es安装中文分词器</title>
+    <url>/b25bc7a5084f/</url>
+    <content><![CDATA[<blockquote>
+<p>Docker 安装  - 进入docker容器<br>注意需要安装对应版本的，可以访问 <a href="https://github.com/medcl/">https://github.com/medcl/</a> 可以看到还有中文拼音分词器</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">所在目录 /usr/share/elasticsearch/bin</span><br><span class="line">./elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v7.14.1/elasticsearch-analysis-ik-7.14.1.zip</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>安装完成后重启es容器</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>ELK</category>
+        <category>ES</category>
+      </categories>
+      <tags>
+        <tag>ELK</tag>
+        <tag>ES</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux 内存清理</title>
+    <url>/49411fb0880a/</url>
+    <content><![CDATA[<h3 id="查看当前内存使用情况"><a href="#查看当前内存使用情况" class="headerlink" title="查看当前内存使用情况"></a>查看当前内存使用情况</h3><p>使用命令 <code>free -m</code></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[root@ecs-a009 ~]# free -m</span><br><span class="line">              total        used        free      shared  buff/cache   available</span><br><span class="line">Mem:          31959       22957         274          27        8727        8540</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h3 id="执行清除内存命令"><a href="#执行清除内存命令" class="headerlink" title="执行清除内存命令"></a>执行清除内存命令</h3><p>一共分为3种</p>
+<ol>
+<li>只清除页面缓存 <code>echo 1 &gt; /proc/sys/vm/drop_caches</code></li>
+<li>清除目录项和inode <code>echo 2 &gt; /proc/sys/vm/drop_caches</code></li>
+<li>清除页面缓存、目录项和节点 <code>echo 3 &gt; /proc/sys/vm/drop_caches</code></li>
+</ol>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux 常用命令</title>
+    <url>/65b94b1bda38/</url>
+    <content><![CDATA[<ol>
+<li><p>查看开机自启项目</p>
+<blockquote>
+<p>ntsysv</p>
+</blockquote>
+</li>
+<li><p>设置开机自启项</p>
+<blockquote>
+<p>chkconfig xxxx on<br>chkconfig xxxx off<br>systemctl enable xxxx<br>systemctl disable xxxx</p>
+</blockquote>
+</li>
+<li><p>centos rpm</p>
+<blockquote>
+<p>安装<br>rpm -ivh xxxxxx<br>卸载<br>rpm -e xxxxx<br>搜索<br>rpm -qa | grep xxxxx</p>
+</blockquote>
+</li>
+</ol>
+<span id="more"></span>
+
+<ol start="4">
+<li><p>搜索查询结果</p>
+<blockquote>
+<p>xxxxx | grep xxxx<br>cat /var/log/mysql.log | grep password</p>
+</blockquote>
+</li>
+<li><p>查看进程</p>
+<blockquote>
+<p>ps -ef | grep xxxx</p>
+</blockquote>
+</li>
+<li><p>拷贝</p>
+<blockquote>
+<p>cp source target<br>cp /var/log/mysql.log /usr/log/cpmysql.log</p>
+</blockquote>
+</li>
+<li><p>清空某个文件内容</p>
+<blockquote>
+<p>cat /dev/null &gt; xxxx</p>
+</blockquote>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux 磁盘沾满查找原因并清理</title>
+    <url>/2679357b2a84/</url>
+    <content><![CDATA[<blockquote>
+<p>使用<code>df -h</code>命令查看磁盘占用情况，可以查看根目录下使用了64G，可用33G</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[root@ecs-a009 mysql]# df -h</span><br><span class="line">Filesystem      Size  Used Avail Use% Mounted on</span><br><span class="line">devtmpfs         16G     0   16G   0% /dev</span><br><span class="line">tmpfs            16G     0   16G   0% /dev/shm</span><br><span class="line">tmpfs            16G  1.6G   15G  11% /run</span><br><span class="line">tmpfs            16G     0   16G   0% /sys/fs/cgroup</span><br><span class="line">/dev/vda1        99G   62G   33G  66% /</span><br><span class="line">overlay          99G   62G   33G  66% /var/lib/docker/overlay2/4aaef38848b9cae51b63d1203a7e20dc99281816293a3e4168beb73e8efd160e/merged</span><br><span class="line">overlay          99G   62G   33G  66% /var/lib/docker/overlay2/ab15db6d1ab3b93f64e88a4be6a25f61f6f8e4a086ba1238955578a499c62e70/merged</span><br><span class="line">...</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果磁盘沾满可以使用命令<code>du -h --max-depth=1</code>查看文件夹占用了多少空间，从根据排查可以看到目前使用最多的是 /var 文件夹下，可以进入到var目录下继续使用命令查找定位具体是哪个文件夹占用了最多的空间。</p>
+</blockquote>
+<span id="more"></span>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[root@ecs-a009 /]# cd /</span><br><span class="line">[root@ecs-a009 /]# sudo du -h --max-depth=1</span><br><span class="line">4.0K	./mnt</span><br><span class="line">56K	./tmp</span><br><span class="line">0	./dev</span><br><span class="line">16K	./lost+found</span><br><span class="line">8.0K	./patch</span><br><span class="line">2.7G	./kaiqi</span><br><span class="line">238M	./opt</span><br><span class="line">177M	./boot</span><br><span class="line">4.0K	./srv</span><br><span class="line">24M	./etc</span><br><span class="line">1.9G	./Docker</span><br><span class="line">4.0K	./media</span><br><span class="line">4.9G	./usr</span><br><span class="line">326M	./root</span><br><span class="line">20K	./home</span><br><span class="line">1.6G	./run</span><br><span class="line">2.6M	./CloudrResetPwdAgent</span><br><span class="line">206M	./CloudResetPwdUpdateAgent</span><br><span class="line">0	./proc</span><br><span class="line">95G	./var</span><br><span class="line">0	./sys</span><br><span class="line">3.2G	./data</span><br><span class="line">110G	.</span><br><span class="line">[root@ecs-a009 /]# </span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MySQL-IFNULL处理N/A</title>
+    <url>/2ee9b82888bd/</url>
+    <content><![CDATA[<blockquote>
+<p>在查询中，如果没有找到结果，数据返回的某一列为 N/A ,使用MySQL NULL判断函数是不对的，所以需要通过 内置函数<code>max()</code>或<code>min()</code>将 N/A 转换为 null 即可进行正常的 NULL判断函数</p>
+</blockquote>
+<span id="more"></span>
+
+<p><img src="https://raw.githubusercontent.com/MemoryL7/images-hosting/master/na.5x8d98pwed00.png" alt="na"></p>
+<p><img src="https://raw.githubusercontent.com/MemoryL7/images-hosting/master/maxna.tx0jtbi6r7k.png" alt="maxna"></p>
+]]></content>
+      <categories>
+        <category>mysql</category>
+      </categories>
+      <tags>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MySQL-常用操作</title>
+    <url>/38d450277c5b/</url>
+    <content><![CDATA[<h4 id="开启事务"><a href="#开启事务" class="headerlink" title="开启事务"></a>开启事务</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">START TRANSACTION;</span><br><span class="line">-- 事务代码</span><br><span class="line">COMMIT;</span><br><span class="line">-- ROLLBACK;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>mysql</category>
+      </categories>
+      <tags>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MySQL-添加用户并设置权限</title>
+    <url>/ef166c349c5c/</url>
+    <content><![CDATA[<h4 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CREATE USER &#x27;username&#x27;@&#x27;host&#x27; IDENTIFIED BY &#x27;password&#x27;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>username:用户名；host：指定在哪个主机上可以登录，本机可用localhost，%通配所有远程主机；password：用户登录密码；</p>
+</blockquote>
+<span id="more"></span>
+
+<h4 id="设置权限"><a href="#设置权限" class="headerlink" title="设置权限"></a>设置权限</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 授权</span><br><span class="line">GRANT ALL PRIVILEGES ON  *.* TO &#x27;username&#x27;@&#x27;%&#x27; IDENTIFIED BY &#x27;password&#x27;;</span><br><span class="line">-- 刷新权限</span><br><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>grant 权限 on 库名.表名 to 用户@登录主机 identified by “用户密码”; <br/><br>*.*代表所有权;</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>mysql</category>
+      </categories>
+      <tags>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MySql  too many connections 解决方法</title>
+    <url>/417c5a5c4a50/</url>
+    <content><![CDATA[<blockquote>
+<p>mysql提示too many connections，从字面理解，太多连接，先设置mysql max_connections后查看情况</p>
+</blockquote>
+<h4 id="修改mysql配置文件-my-cnf"><a href="#修改mysql配置文件-my-cnf" class="headerlink" title="修改mysql配置文件 my.cnf"></a>修改mysql配置文件 my.cnf</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">vi /etc/my.cnf</span><br><span class="line"></span><br><span class="line">....</span><br><span class="line">[mysqld]</span><br><span class="line">max_connections=1000</span><br><span class="line">....</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h4 id="重启mysql服务"><a href="#重启mysql服务" class="headerlink" title="重启mysql服务"></a>重启mysql服务</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">systemctl restart mysqld</span><br></pre></td></tr></table></figure>
+
+
+<blockquote>
+<p>登陆mysql后，可以查看<code>show variables like &#39;max_connections&#39;;</code>已经变更为1000，使用命名 <code>show processlist;</code> 监控一段时间并没有快速沾满1000连接，应该是正常的连接过多导致。</p>
+</blockquote>
+]]></content>
+  </entry>
+  <entry>
+    <title>VS Code 使用 RESTClient 多个请求不显示 send request</title>
+    <url>/329fd484cc8a/</url>
+    <content><![CDATA[<blockquote>
+<p>如果要在一个http文件中输入多个rest api调用，在请求之间需要用三个#号隔开，如下图</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/MemoryL7/images-hosting/master/vscodeRestClient.1pne7ifas8o0.png" alt="vscodeRestClient"></p>
+]]></content>
+      <categories>
+        <category>vscode</category>
+        <category>restclient</category>
+      </categories>
+      <tags>
+        <tag>restClient</tag>
+        <tag>vscode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>centos 安装时间同步工具</title>
+    <url>/1a69de63cca1/</url>
+    <content><![CDATA[<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">yum -y install npt ntpdate</span><br><span class="line">ntpdate cn.pool.ntp.org</span><br><span class="line">hwclock --systoch</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+<blockquote>
+<p>设置阿里地址的地址</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">vi /etc/ntp.cnf</span><br><span class="line"></span><br><span class="line">server ntp1.aliyun.com prefer</span><br><span class="line">server ntp2.aliyun.com</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>同步</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ntpdate ntp1.aliyun.com</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>启用ntp服务以及开机自启</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">systemctl ntpd start</span><br><span class="line">chkconfig ntpd on</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>设置时区</p>
+</blockquote>
+<p>timedatectl set-timezone Asia/Shanghai</p>
+]]></content>
+      <categories>
+        <category>centos</category>
+      </categories>
+      <tags>
+        <tag>centos</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>docker镜像打包导入另一台电脑</title>
+    <url>/6804122c4cf6/</url>
+    <content><![CDATA[<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#导出命令</span><br><span class="line">docker save -o xxx.tar imageName:tag</span><br><span class="line"></span><br><span class="line">#导入命令</span><br><span class="line">docker load &lt; xxx.tar</span><br><span class="line"></span><br><span class="line">#查看镜像，导入完成</span><br><span class="line">docker images</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>docker</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/0b01f6f14184/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<span id="more"></span>
+
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo-Next 自定义样式</title>
+    <url>/859ddb23190f/</url>
+    <content><![CDATA[<h3 id="添加自定义样式文件"><a href="#添加自定义样式文件" class="headerlink" title="添加自定义样式文件"></a>添加自定义样式文件</h3><ol>
+<li>在Hexo根目录下新增样式文件，路径 source/_data/styles.styl</li>
+<li>开启NexT _config.yml中的配置即可<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">custom_file_path:</span><br><span class="line">	style: source/_data/styles.styl</span><br></pre></td></tr></table></figure></li>
+</ol>
+]]></content>
+      <categories>
+        <category>next</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>next</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>idea在SVN子目录中打开项目不显示svn插件</title>
+    <url>/38d4db047ac6/</url>
+    <content><![CDATA[<ol>
+<li>在idea的工具栏中点击 VCS (只有当前项目没有被识别到svn或者git时才显示，如果已识别工具栏中则直接显示svn或者git，不会显示vcs)<br><img src="https://raw.githubusercontent.com/MemoryL7/images-hosting/master/enable-version.2wjwfuvfbpw0.png" alt="enable-version"></li>
+</ol>
+<span id="more"></span>
+
+<p><img src="https://raw.githubusercontent.com/MemoryL7/images-hosting/master/vcs.5unpoyk12sw0.png" alt="vcs"></p>
+<p><img src="https://raw.githubusercontent.com/MemoryL7/images-hosting/master/svn.1cpye7grgvts.png" alt="svn"></p>
+<ol start="2">
+<li>选择自己对应的即可<br><img src="https://raw.githubusercontent.com/MemoryL7/images-hosting/master/enable-version-select.urcbly14vkw.png" alt="enable-version-select"></li>
+</ol>
+]]></content>
+      <categories>
+        <category>svn</category>
+      </categories>
+      <tags>
+        <tag>idea</tag>
+        <tag>svn</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>IDEA 项目结构出现 0&amp;#37; classes,0&amp;#37; lines covered解决方法</title>
+    <url>/8a9a0a6107d3/</url>
+    <content><![CDATA[<p><code>Ctrl + Alt + F6</code>或者点击<code>Run -&gt; Show Coverage Data...</code>，然后取消勾选，中间的那个No Coverage</p>
+<span id="more"></span>
+
+<p><img src="https://raw.githubusercontent.com/MemoryL7/images-hosting/master/ShowCoverageData.57amtr7x4x80.png" alt="ShowCoverageData"><br><img src="https://raw.githubusercontent.com/MemoryL7/images-hosting/master/ShowCoverageDataForm.25bzjgyibp4w.png" alt="ShowCoverageDataForm"></p>
+]]></content>
+      <categories>
+        <category>idea</category>
+      </categories>
+      <tags>
+        <tag>idea</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>linux ssh生成密钥免密登陆</title>
+    <url>/bb00d411a8f0/</url>
+    <content><![CDATA[<blockquote>
+<p>本次生成密钥</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>给本机私钥</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh-copy-id localhost</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>给要免密登陆的机器公钥</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh-copy-id 192.168.2.128</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>ssh</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>ssh</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>taos 时序数据库 client访问端口设置问题</title>
+    <url>/f0f2393618bf/</url>
+    <content><![CDATA[<h3 id="开放端口"><a href="#开放端口" class="headerlink" title="开放端口"></a>开放端口</h3><p>服务器安装taos后，需要开放以下端口：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">firewall-cmd --add-port=6030/tcp --permanent</span><br><span class="line">firewall-cmd --add-port=6035/tcp --permanent</span><br><span class="line">firewall-cmd --add-port=6030-6039/udp --permanent</span><br><span class="line"></span><br><span class="line">service firewall restart</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<h3 id="端口用途说明"><a href="#端口用途说明" class="headerlink" title="端口用途说明"></a>端口用途说明</h3><table>
+<thead>
+<tr>
+<th>协议</th>
+<th>默认端口</th>
+<th>用途说明</th>
+<th>修改方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>TCP</td>
+<td>6030</td>
+<td>客户端与服务端之间通讯。</td>
+<td>由配置文件设置 serverPort 决定。</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>6035</td>
+<td>多节点集群的节点间通讯。</td>
+<td>随 serverPort 端口变化。</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>6040</td>
+<td>多节点集群的节点间数据同步。</td>
+<td>随 serverPort 端口变化。</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>6041</td>
+<td>客户端与服务端之间的 RESTful 通讯。</td>
+<td>随 serverPort 端口变化。</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>6042</td>
+<td>Arbitrator 的服务端口。</td>
+<td>因 Arbitrator 启动参数设置变化。</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>6060</td>
+<td>企业版内 Monitor 服务的网络端口。</td>
+<td></td>
+</tr>
+<tr>
+<td>UDP</td>
+<td>6030-6034</td>
+<td>客户端与服务端之间通讯。</td>
+<td>随 serverPort 端口变化。</td>
+</tr>
+<tr>
+<td>UDP</td>
+<td>6035-6039</td>
+<td>多节点集群的节点间通讯。</td>
+<td>随 serverPort 端口变化。</td>
+</tr>
+</tbody></table>
+<p><a href="https://www.taosdata.com/cn/documentation/faq#port">taos官网端口用途说明</a></p>
+]]></content>
+      <categories>
+        <category>taos</category>
+      </categories>
+      <tags>
+        <tag>taos</tag>
+        <tag>taos client访问问题</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MyBatis Plus 执行原生SQL异常 Failed to process、net.sf.jsqlparser.parser.ParseException: Encountered unexpected token</title>
+    <url>/8038d5a65452/</url>
+    <content><![CDATA[<h3 id="SpringBoot项目在执行原生SQL（使用IPage）时异常：net-sf-jsqlparser-parser-ParseException-Encountered-unexpected-token-XXXXX"><a href="#SpringBoot项目在执行原生SQL（使用IPage）时异常：net-sf-jsqlparser-parser-ParseException-Encountered-unexpected-token-XXXXX" class="headerlink" title="SpringBoot项目在执行原生SQL（使用IPage）时异常：net.sf.jsqlparser.parser.ParseException: Encountered unexpected token:XXXXX"></a>SpringBoot项目在执行原生SQL（使用IPage）时异常：net.sf.jsqlparser.parser.ParseException: Encountered unexpected token:XXXXX</h3><h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><blockquote>
+<ol>
+<li>MyBatis-Plus在处理SQL时会被 <a href="https://mp.baomidou.com/guide/interceptor.html#mybatisplusinterceptor">MybatisPlusInterceptor</a> 拦截，对SQL进行一系列操作，如若不需要使用注解 <a href="https://mp.baomidou.com/guide/interceptor.html#mybatisplusinterceptor">@InterceptorIgnore</a> 忽略拦截即可。</li>
+<li>MyBatis-Plus在处理分页countSql时，会经过<code>PaginationInnerInterceptor.java</code>拦截器，在获取执行SQL时会通过，Page类中<code>optimizeCountSql</code>属性判断是都需要优化，如果不需要再传Page的时候设置为false即可。</li>
+</ol>
+</blockquote>
+<span id="more"></span>
+
+<h4 id="记录一下调试异常过程"><a href="#记录一下调试异常过程" class="headerlink" title="记录一下调试异常过程"></a>记录一下调试异常过程</h4><!-- more -->
+
+<blockquote>
+<p>异常内容如下：</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="number">2021</span>-<span class="number">06</span>-<span class="number">19</span> <span class="number">11</span>:<span class="number">06</span>:<span class="number">52.090</span> ERROR <span class="number">24216</span> --- [  XNIO-<span class="number">1</span> task-<span class="number">1</span>] o.s.c.l.e.BladeRestExceptionTranslator   : 服务器异常</span><br><span class="line"></span><br><span class="line">org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.PersistenceException: </span><br><span class="line">### Error querying database.  Cause: com.baomidou.mybatisplus.core.exceptions.MybatisPlusException: Failed to process, Error SQL: xxxxxxxxxxxxxxxxxxxx</span><br><span class="line">### Cause: com.baomidou.mybatisplus.core.exceptions.MybatisPlusException: Failed to process, Error SQL: xxxxxxxxxxxxxxxxxxxxxxxxxxxxx</span><br><span class="line">	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:<span class="number">96</span>)</span><br><span class="line">	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:<span class="number">441</span>)</span><br><span class="line">	at com.sun.proxy.$Proxy135.selectList(Unknown Source)</span><br><span class="line">	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:<span class="number">224</span>)</span><br><span class="line">	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.executeForIPage(MybatisMapperMethod.java:<span class="number">122</span>)</span><br><span class="line">	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:<span class="number">86</span>)</span><br><span class="line">	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:<span class="number">148</span>)</span><br><span class="line">	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:<span class="number">89</span>)</span><br><span class="line">	at com.sun.proxy.$Proxy212.pageList(Unknown Source)</span><br><span class="line">	at org.springblade.modules.fangyi.service.impl.PersonnelOutServiceImpl.pageList(PersonnelOutServiceImpl.java:<span class="number">22</span>)</span><br><span class="line">	at org.springblade.modules.fangyi.service.impl.PersonnelOutServiceImpl$$FastClassBySpringCGLIB$$f13e09e8.invoke(&lt;generated&gt;)</span><br><span class="line">	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:<span class="number">218</span>)</span><br><span class="line">	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:<span class="number">687</span>)</span><br><span class="line">	at org.springblade.modules.fangyi.service.impl.PersonnelOutServiceImpl$$EnhancerBySpringCGLIB$$eefa72e6.pageList(&lt;generated&gt;)</span><br><span class="line">	at org.springblade.modules.fangyi.controller.PersonnelOutController.list(PersonnelOutController.java:<span class="number">69</span>)</span><br><span class="line">	at org.springblade.modules.fangyi.controller.PersonnelOutController$$FastClassBySpringCGLIB$$c2a6df06.invoke(&lt;generated&gt;)</span><br><span class="line">	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:<span class="number">218</span>)</span><br><span class="line">	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:<span class="number">771</span>)</span><br><span class="line">	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:<span class="number">163</span>)</span><br><span class="line">	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:<span class="number">749</span>)</span><br><span class="line">	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:<span class="number">88</span>)</span><br><span class="line">	at org.springblade.core.log.aspect.RequestLogAspect.aroundApi(RequestLogAspect.java:<span class="number">112</span>)</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:<span class="number">62</span>)</span><br><span class="line">	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:<span class="number">43</span>)</span><br><span class="line">	at java.lang.reflect.Method.invoke(Method.java:<span class="number">498</span>)</span><br><span class="line">	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:<span class="number">644</span>)</span><br><span class="line">	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:<span class="number">633</span>)</span><br><span class="line">	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:<span class="number">70</span>)</span><br><span class="line">	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:<span class="number">175</span>)</span><br><span class="line">	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:<span class="number">749</span>)</span><br><span class="line">	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:<span class="number">95</span>)</span><br><span class="line">	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:<span class="number">186</span>)</span><br><span class="line">	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:<span class="number">749</span>)</span><br><span class="line">	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:<span class="number">691</span>)</span><br><span class="line">	at org.springblade.modules.fangyi.controller.PersonnelOutController$$EnhancerBySpringCGLIB$$5fd7e86c.list(&lt;generated&gt;)</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:<span class="number">62</span>)</span><br><span class="line">	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:<span class="number">43</span>)</span><br><span class="line">	at java.lang.reflect.Method.invoke(Method.java:<span class="number">498</span>)</span><br><span class="line">	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:<span class="number">190</span>)</span><br><span class="line">	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:<span class="number">138</span>)</span><br><span class="line">	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:<span class="number">105</span>)</span><br><span class="line">	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:<span class="number">878</span>)</span><br><span class="line">	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:<span class="number">792</span>)</span><br><span class="line">	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:<span class="number">87</span>)</span><br><span class="line">	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:<span class="number">1040</span>)</span><br><span class="line">	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:<span class="number">943</span>)</span><br><span class="line">	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:<span class="number">1006</span>)</span><br><span class="line">	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:<span class="number">898</span>)</span><br><span class="line">	at javax.servlet.http.HttpServlet.service(HttpServlet.java:<span class="number">497</span>)</span><br><span class="line">	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:<span class="number">883</span>)</span><br><span class="line">	at javax.servlet.http.HttpServlet.service(HttpServlet.java:<span class="number">584</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.ServletHandler.handleRequest(ServletHandler.java:<span class="number">74</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:<span class="number">129</span>)</span><br><span class="line">	at org.springblade.core.log.filter.LogTraceFilter.doFilter(LogTraceFilter.java:<span class="number">39</span>)</span><br><span class="line">	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:<span class="number">61</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:<span class="number">131</span>)</span><br><span class="line">	at org.springblade.core.boot.request.BladeRequestFilter.doFilter(BladeRequestFilter.java:<span class="number">58</span>)</span><br><span class="line">	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:<span class="number">61</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:<span class="number">131</span>)</span><br><span class="line">	at com.alibaba.druid.support.http.WebStatFilter.doFilter(WebStatFilter.java:<span class="number">124</span>)</span><br><span class="line">	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:<span class="number">61</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:<span class="number">131</span>)</span><br><span class="line">	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:<span class="number">100</span>)</span><br><span class="line">	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:<span class="number">119</span>)</span><br><span class="line">	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:<span class="number">61</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:<span class="number">131</span>)</span><br><span class="line">	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:<span class="number">93</span>)</span><br><span class="line">	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:<span class="number">119</span>)</span><br><span class="line">	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:<span class="number">61</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:<span class="number">131</span>)</span><br><span class="line">	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:<span class="number">201</span>)</span><br><span class="line">	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:<span class="number">119</span>)</span><br><span class="line">	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:<span class="number">61</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:<span class="number">131</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.FilterHandler.handleRequest(FilterHandler.java:<span class="number">84</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.security.ServletSecurityRoleHandler.handleRequest(ServletSecurityRoleHandler.java:<span class="number">62</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.ServletChain$<span class="number">1.</span>handleRequest(ServletChain.java:<span class="number">68</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.ServletDispatchingHandler.handleRequest(ServletDispatchingHandler.java:<span class="number">36</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.RedirectDirHandler.handleRequest(RedirectDirHandler.java:<span class="number">68</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.security.SSLInformationAssociationHandler.handleRequest(SSLInformationAssociationHandler.java:<span class="number">111</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.security.ServletAuthenticationCallHandler.handleRequest(ServletAuthenticationCallHandler.java:<span class="number">57</span>)</span><br><span class="line">	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:<span class="number">43</span>)</span><br><span class="line">	at io.undertow.security.handlers.AbstractConfidentialityHandler.handleRequest(AbstractConfidentialityHandler.java:<span class="number">46</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.security.ServletConfidentialityConstraintHandler.handleRequest(ServletConfidentialityConstraintHandler.java:<span class="number">64</span>)</span><br><span class="line">	at io.undertow.security.handlers.AuthenticationMechanismsHandler.handleRequest(AuthenticationMechanismsHandler.java:<span class="number">60</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.security.CachedAuthenticatedSessionHandler.handleRequest(CachedAuthenticatedSessionHandler.java:<span class="number">77</span>)</span><br><span class="line">	at io.undertow.security.handlers.AbstractSecurityContextAssociationHandler.handleRequest(AbstractSecurityContextAssociationHandler.java:<span class="number">43</span>)</span><br><span class="line">	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:<span class="number">43</span>)</span><br><span class="line">	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:<span class="number">43</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.ServletInitialHandler.handleFirstRequest(ServletInitialHandler.java:<span class="number">269</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.ServletInitialHandler.access$<span class="number">100</span>(ServletInitialHandler.java:<span class="number">78</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.ServletInitialHandler$<span class="number">2.</span>call(ServletInitialHandler.java:<span class="number">133</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.ServletInitialHandler$<span class="number">2.</span>call(ServletInitialHandler.java:<span class="number">130</span>)</span><br><span class="line">	at io.undertow.servlet.core.ServletRequestContextThreadSetupAction$<span class="number">1.</span>call(ServletRequestContextThreadSetupAction.java:<span class="number">48</span>)</span><br><span class="line">	at io.undertow.servlet.core.ContextClassLoaderSetupAction$<span class="number">1.</span>call(ContextClassLoaderSetupAction.java:<span class="number">43</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.ServletInitialHandler.dispatchRequest(ServletInitialHandler.java:<span class="number">249</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.ServletInitialHandler.access$<span class="number">000</span>(ServletInitialHandler.java:<span class="number">78</span>)</span><br><span class="line">	at io.undertow.servlet.handlers.ServletInitialHandler$<span class="number">1.</span>handleRequest(ServletInitialHandler.java:<span class="number">99</span>)</span><br><span class="line">	at io.undertow.server.Connectors.executeRootHandler(Connectors.java:<span class="number">376</span>)</span><br><span class="line">	at io.undertow.server.HttpServerExchange$<span class="number">1.</span>run(HttpServerExchange.java:<span class="number">830</span>)</span><br><span class="line">	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:<span class="number">1149</span>)</span><br><span class="line">	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:<span class="number">624</span>)</span><br><span class="line">	at java.lang.Thread.run(Thread.java:<span class="number">748</span>)</span><br><span class="line">Caused by: org.apache.ibatis.exceptions.PersistenceException: </span><br><span class="line">### Error querying database.  Cause: com.baomidou.mybatisplus.core.exceptions.MybatisPlusException: Failed to process, Error SQL: xxxxxxxxxxxxxxxxxxxxxxx</span><br><span class="line">### Cause: com.baomidou.mybatisplus.core.exceptions.MybatisPlusException: Failed to process, Error SQL: xxxxxxxxxxxxxxxxxxxxxxxxxx</span><br><span class="line">	at org.apache.ibatis.exceptions.ExceptionFactory.wrapException(ExceptionFactory.java:<span class="number">30</span>)</span><br><span class="line">	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:<span class="number">149</span>)</span><br><span class="line">	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:<span class="number">140</span>)</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:<span class="number">62</span>)</span><br><span class="line">	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:<span class="number">43</span>)</span><br><span class="line">	at java.lang.reflect.Method.invoke(Method.java:<span class="number">498</span>)</span><br><span class="line">	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:<span class="number">427</span>)</span><br><span class="line">	... <span class="number">103</span> common frames omitted</span><br><span class="line">Caused by: com.baomidou.mybatisplus.core.exceptions.MybatisPlusException: Failed to process, Error SQL: xxxxxxxxxxxxxxxxxxxx</span><br><span class="line">	at com.baomidou.mybatisplus.core.toolkit.ExceptionUtils.mpe(ExceptionUtils.java:<span class="number">39</span>)</span><br><span class="line">	at com.baomidou.mybatisplus.extension.parser.JsqlParserSupport.parserSingle(JsqlParserSupport.java:<span class="number">52</span>)</span><br><span class="line">	at com.baomidou.mybatisplus.extension.plugins.inner.TenantLineInnerInterceptor.beforeQuery(TenantLineInnerInterceptor.java:<span class="number">70</span>)</span><br><span class="line">	at com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor.intercept(MybatisPlusInterceptor.java:<span class="number">78</span>)</span><br><span class="line">	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:<span class="number">61</span>)</span><br><span class="line">	at com.sun.proxy.$Proxy271.query(Unknown Source)</span><br><span class="line">	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:<span class="number">147</span>)</span><br><span class="line">	... <span class="number">109</span> common frames omitted</span><br><span class="line">Caused by: net.sf.jsqlparser.parser.ParseException: Encountered unexpected token: <span class="string">&quot;SELECT&quot;</span> &lt;K_SELECT&gt;</span><br><span class="line">    at line <span class="number">1</span>, column <span class="number">336.</span></span><br><span class="line"></span><br><span class="line">Was expecting one of:</span><br><span class="line"></span><br><span class="line">    <span class="string">&quot;!&quot;</span></span><br><span class="line">    <span class="string">&quot;(&quot;</span></span><br><span class="line">    <span class="string">&quot;+&quot;</span></span><br><span class="line">    <span class="string">&quot;-&quot;</span></span><br><span class="line">    <span class="string">&quot;?&quot;</span></span><br><span class="line">    <span class="string">&quot;@&quot;</span></span><br><span class="line">    <span class="string">&quot;@@&quot;</span></span><br><span class="line">    <span class="string">&quot;ACTION&quot;</span></span><br><span class="line">    <span class="string">&quot;ANY&quot;</span></span><br><span class="line">    <span class="string">&quot;BYTE&quot;</span></span><br><span class="line">    <span class="string">&quot;CASCADE&quot;</span></span><br><span class="line">    <span class="string">&quot;CASE&quot;</span></span><br><span class="line">    <span class="string">&quot;CAST&quot;</span></span><br><span class="line">    <span class="string">&quot;CHANGE&quot;</span></span><br><span class="line">    <span class="string">&quot;CHAR&quot;</span></span><br><span class="line">    <span class="string">&quot;CHARACTER&quot;</span></span><br><span class="line">    <span class="string">&quot;COLUMN&quot;</span></span><br><span class="line">    <span class="string">&quot;COLUMNS&quot;</span></span><br><span class="line">    <span class="string">&quot;COMMENT&quot;</span></span><br><span class="line">    <span class="string">&quot;COMMIT&quot;</span></span><br><span class="line">    <span class="string">&quot;CREATE&quot;</span></span><br><span class="line">    <span class="string">&quot;CURRENT&quot;</span></span><br><span class="line">    <span class="string">&quot;CYCLE&quot;</span></span><br><span class="line">    <span class="string">&quot;DESC&quot;</span></span><br><span class="line">    <span class="string">&quot;DESCRIBE&quot;</span></span><br><span class="line">    <span class="string">&quot;DISABLE&quot;</span></span><br><span class="line">    <span class="string">&quot;DIV&quot;</span></span><br><span class="line">    <span class="string">&quot;DO&quot;</span></span><br><span class="line">    <span class="string">&quot;DOUBLE&quot;</span></span><br><span class="line">    <span class="string">&quot;DUPLICATE&quot;</span></span><br><span class="line">    <span class="string">&quot;ENABLE&quot;</span></span><br><span class="line">    <span class="string">&quot;END&quot;</span></span><br><span class="line">    <span class="string">&quot;EXCLUDE&quot;</span></span><br><span class="line">    <span class="string">&quot;EXTRACT&quot;</span></span><br><span class="line">    <span class="string">&quot;FALSE&quot;</span></span><br><span class="line">    <span class="string">&quot;FIRST&quot;</span></span><br><span class="line">    <span class="string">&quot;FN&quot;</span></span><br><span class="line">    <span class="string">&quot;FOLLOWING&quot;</span></span><br><span class="line">    <span class="string">&quot;FORMAT&quot;</span></span><br><span class="line">    <span class="string">&quot;GROUP&quot;</span></span><br><span class="line">    <span class="string">&quot;GROUP_CONCAT&quot;</span></span><br><span class="line">    <span class="string">&quot;IF&quot;</span></span><br><span class="line">    <span class="string">&quot;INDEX&quot;</span></span><br><span class="line">    <span class="string">&quot;INSERT&quot;</span></span><br><span class="line">    <span class="string">&quot;INTERVAL&quot;</span></span><br><span class="line">    <span class="string">&quot;ISNULL&quot;</span></span><br><span class="line">    <span class="string">&quot;KEY&quot;</span></span><br><span class="line">    <span class="string">&quot;LAST&quot;</span></span><br><span class="line">    <span class="string">&quot;LEFT&quot;</span></span><br><span class="line">    <span class="string">&quot;LIMIT&quot;</span></span><br><span class="line">    <span class="string">&quot;MATERIALIZED&quot;</span></span><br><span class="line">    <span class="string">&quot;NEXTVAL&quot;</span></span><br><span class="line">    <span class="string">&quot;NO&quot;</span></span><br><span class="line">    <span class="string">&quot;NOLOCK&quot;</span></span><br><span class="line">    <span class="string">&quot;NOT&quot;</span></span><br><span class="line">    <span class="string">&quot;NULL&quot;</span></span><br><span class="line">    <span class="string">&quot;NULLS&quot;</span></span><br><span class="line">    <span class="string">&quot;OF&quot;</span></span><br><span class="line">    <span class="string">&quot;OFFSET&quot;</span></span><br><span class="line">    <span class="string">&quot;ON&quot;</span></span><br><span class="line">    <span class="string">&quot;OPEN&quot;</span></span><br><span class="line">    <span class="string">&quot;OPTIMIZE&quot;</span></span><br><span class="line">    <span class="string">&quot;ORDER&quot;</span></span><br><span class="line">    <span class="string">&quot;OVER&quot;</span></span><br><span class="line">    <span class="string">&quot;PARTITION&quot;</span></span><br><span class="line">    <span class="string">&quot;PATH&quot;</span></span><br><span class="line">    <span class="string">&quot;PERCENT&quot;</span></span><br><span class="line">    <span class="string">&quot;PRECISION&quot;</span></span><br><span class="line">    <span class="string">&quot;PRIMARY&quot;</span></span><br><span class="line">    <span class="string">&quot;PRIOR&quot;</span></span><br><span class="line">    <span class="string">&quot;PROCEDURE&quot;</span></span><br><span class="line">    <span class="string">&quot;PUBLIC&quot;</span></span><br><span class="line">    <span class="string">&quot;RANGE&quot;</span></span><br><span class="line">    <span class="string">&quot;READ&quot;</span></span><br><span class="line">    <span class="string">&quot;REPLACE&quot;</span></span><br><span class="line">    <span class="string">&quot;RIGHT&quot;</span></span><br><span class="line">    <span class="string">&quot;ROW&quot;</span></span><br><span class="line">    <span class="string">&quot;ROWS&quot;</span></span><br><span class="line">    <span class="string">&quot;SCHEMA&quot;</span></span><br><span class="line">    <span class="string">&quot;SEPARATOR&quot;</span></span><br><span class="line">    <span class="string">&quot;SEQUENCE&quot;</span></span><br><span class="line">    <span class="string">&quot;SESSION&quot;</span></span><br><span class="line">    <span class="string">&quot;SET&quot;</span></span><br><span class="line">    <span class="string">&quot;SIBLINGS&quot;</span></span><br><span class="line">    <span class="string">&quot;SIZE&quot;</span></span><br><span class="line">    <span class="string">&quot;START&quot;</span></span><br><span class="line">    <span class="string">&quot;TABLE&quot;</span></span><br><span class="line">    <span class="string">&quot;TABLES&quot;</span></span><br><span class="line">    <span class="string">&quot;TEMP&quot;</span></span><br><span class="line">    <span class="string">&quot;TEMPORARY&quot;</span></span><br><span class="line">    <span class="string">&quot;TO&quot;</span></span><br><span class="line">    <span class="string">&quot;TOP&quot;</span></span><br><span class="line">    <span class="string">&quot;TRUE&quot;</span></span><br><span class="line">    <span class="string">&quot;TRUNCATE&quot;</span></span><br><span class="line">    <span class="string">&quot;TYPE&quot;</span></span><br><span class="line">    <span class="string">&quot;UNSIGNED&quot;</span></span><br><span class="line">    <span class="string">&quot;VALIDATE&quot;</span></span><br><span class="line">    <span class="string">&quot;VALUE&quot;</span></span><br><span class="line">    <span class="string">&quot;VALUES&quot;</span></span><br><span class="line">    <span class="string">&quot;VIEW&quot;</span></span><br><span class="line">    <span class="string">&quot;XML&quot;</span></span><br><span class="line">    <span class="string">&quot;XMLSERIALIZE&quot;</span></span><br><span class="line">    <span class="string">&quot;ZONE&quot;</span></span><br><span class="line">    <span class="string">&quot;&#123;d&quot;</span></span><br><span class="line">    <span class="string">&quot;&#123;t&quot;</span></span><br><span class="line">    <span class="string">&quot;&#123;ts&quot;</span></span><br><span class="line">    <span class="string">&quot;~&quot;</span></span><br><span class="line">    &lt;K_DATETIMELITERAL&gt;</span><br><span class="line">    &lt;K_DATE_LITERAL&gt;</span><br><span class="line">    &lt;K_TIME_KEY_EXPR&gt;</span><br><span class="line">    &lt;S_CHAR_LITERAL&gt;</span><br><span class="line">    &lt;S_DOUBLE&gt;</span><br><span class="line">    &lt;S_HEX&gt;</span><br><span class="line">    &lt;S_IDENTIFIER&gt;</span><br><span class="line">    &lt;S_LONG&gt;</span><br><span class="line">    &lt;S_QUOTED_IDENTIFIER&gt;</span><br><span class="line"></span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.generateParseException(CCJSqlParser.java:<span class="number">26538</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.jj_consume_token(CCJSqlParser.java:<span class="number">26377</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.PrimaryExpression(CCJSqlParser.java:<span class="number">11012</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.BitwiseXor(CCJSqlParser.java:<span class="number">10671</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.MultiplicativeExpression(CCJSqlParser.java:<span class="number">10624</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.AdditiveExpression(CCJSqlParser.java:<span class="number">10587</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.BitwiseAndOr(CCJSqlParser.java:<span class="number">10533</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.ConcatExpression(CCJSqlParser.java:<span class="number">10509</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.SimpleExpression(CCJSqlParser.java:<span class="number">10495</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.PrimaryExpression(CCJSqlParser.java:<span class="number">11005</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.BitwiseXor(CCJSqlParser.java:<span class="number">10671</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.MultiplicativeExpression(CCJSqlParser.java:<span class="number">10624</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.AdditiveExpression(CCJSqlParser.java:<span class="number">10587</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.BitwiseAndOr(CCJSqlParser.java:<span class="number">10533</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.ConcatExpression(CCJSqlParser.java:<span class="number">10509</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.SimpleExpression(CCJSqlParser.java:<span class="number">10495</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.SQLCondition(CCJSqlParser.java:<span class="number">9195</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.Condition(CCJSqlParser.java:<span class="number">8697</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.SelectExpressionItem(CCJSqlParser.java:<span class="number">4798</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.SelectItem(CCJSqlParser.java:<span class="number">5033</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.SelectItemsList(CCJSqlParser.java:<span class="number">4789</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.PlainSelect(CCJSqlParser.java:<span class="number">4273</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.SetOperationList(CCJSqlParser.java:<span class="number">4496</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.SelectBody(CCJSqlParser.java:<span class="number">4163</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.Select(CCJSqlParser.java:<span class="number">4158</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.SingleStatement(CCJSqlParser.java:<span class="number">130</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParser.Statement(CCJSqlParser.java:<span class="number">81</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParserUtil.parseStatement(CCJSqlParserUtil.java:<span class="number">163</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParserUtil.parse(CCJSqlParserUtil.java:<span class="number">59</span>)</span><br><span class="line">	at net.sf.jsqlparser.parser.CCJSqlParserUtil.parse(CCJSqlParserUtil.java:<span class="number">37</span>)</span><br><span class="line">	at com.baomidou.mybatisplus.extension.parser.JsqlParserSupport.parserSingle(JsqlParserSupport.java:<span class="number">49</span>)</span><br><span class="line">	... <span class="number">114</span> common frames omitted</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>根据异常前两行可以看到<code>Cause: com.baomidou.mybatisplus.core.exceptions.MybatisPlusException</code>是MybatisPlus在执行过程中出错，错误信息<code>Failed to process, Error SQL: xxxxxx</code>，难道是SQL错了？</p>
+</blockquote>
+<blockquote>
+<p>在Navicat中执行SQL是正常的，所以SQL语句没有问题，继续往下看,找到另外一个错误<code>net.sf.jsqlparser.parser.ParseException</code>sql解析错误</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Caused by: com.baomidou.mybatisplus.core.exceptions.MybatisPlusException: Failed to process, Error SQL: xxxxxxxxxxxxxxxxxxxxxxxx</span><br><span class="line">	at com.baomidou.mybatisplus.core.toolkit.ExceptionUtils.mpe(ExceptionUtils.java:39)</span><br><span class="line">	at com.baomidou.mybatisplus.extension.parser.JsqlParserSupport.parserSingle(JsqlParserSupport.java:52)</span><br><span class="line">	at com.baomidou.mybatisplus.extension.plugins.inner.TenantLineInnerInterceptor.beforeQuery(TenantLineInnerInterceptor.java:70)</span><br><span class="line">	at com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor.intercept(MybatisPlusInterceptor.java:78)</span><br><span class="line">	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:61)</span><br><span class="line">	at com.sun.proxy.$Proxy271.query(Unknown Source)</span><br><span class="line">	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:147)</span><br><span class="line">	... 109 common frames omitted</span><br><span class="line">Caused by: net.sf.jsqlparser.parser.ParseException: Encountered unexpected token: &quot;SELECT&quot; &lt;K_SELECT&gt;</span><br><span class="line">    at line 1, column 336.</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在报错行的上方几行处，找到几个类<code>ExceptionUtils.java</code>、<code>JsqlParserSupport.java</code>和<code>TenantLineInnerInterceptor.java</code>,在TenantLineInnerInterceptor这个类拦截处理时出错。</p>
+</blockquote>
+<blockquote>
+<p>官网对于这个类的解释 <a href="https://mp.baomidou.com/guide/interceptor.html#mybatisplusinterceptor">MybatisPlusInterceptor</a></p>
+</blockquote>
+<blockquote>
+<p>解决：由官网描述可以看到使用注解 @InterceptorIgnore 可以忽略拦截。所以在Mapper执行的方法上加上该注解<code>@InterceptorIgnore(tenantLine = &quot;true&quot;)</code>，测试成功。<br/><br>但是在执行分页工具在执行count检索的时候又报错，如下：</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="number">2021</span>-<span class="number">06</span>-<span class="number">19</span> <span class="number">15</span>:<span class="number">18</span>:<span class="number">42.139</span>  WARN <span class="number">20208</span> --- [  XNIO-<span class="number">1</span> task-<span class="number">4</span>] o.s.c.m.p.BladePaginationInterceptor     : optimize <span class="built_in">this</span> sql to a count sql has exception, sql:<span class="string">&quot;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&quot;</span>, exception:</span><br><span class="line">net.sf.jsqlparser.parser.ParseException: Encountered unexpected token: <span class="string">&quot;SELECT&quot;</span> &lt;K_SELECT&gt;</span><br><span class="line">    at line <span class="number">1</span>, column <span class="number">336.</span></span><br><span class="line"></span><br><span class="line">Was expecting one of:</span><br><span class="line"></span><br><span class="line">    <span class="string">&quot;!&quot;</span></span><br><span class="line">    <span class="string">&quot;(&quot;</span></span><br><span class="line">    <span class="string">&quot;+&quot;</span></span><br><span class="line">    <span class="string">&quot;-&quot;</span></span><br><span class="line">    <span class="string">&quot;?&quot;</span></span><br><span class="line">    <span class="string">&quot;@&quot;</span></span><br><span class="line">    <span class="string">&quot;@@&quot;</span></span><br><span class="line">    <span class="string">&quot;ACTION&quot;</span></span><br><span class="line">    <span class="string">&quot;ANY&quot;</span></span><br><span class="line">    <span class="string">&quot;BYTE&quot;</span></span><br><span class="line">    <span class="string">&quot;CASCADE&quot;</span></span><br><span class="line">    <span class="string">&quot;CASE&quot;</span></span><br><span class="line">    <span class="string">&quot;CAST&quot;</span></span><br><span class="line">    <span class="string">&quot;CHANGE&quot;</span></span><br><span class="line">    <span class="string">&quot;CHAR&quot;</span></span><br><span class="line">    <span class="string">&quot;CHARACTER&quot;</span></span><br><span class="line">    <span class="string">&quot;COLUMN&quot;</span></span><br><span class="line">    <span class="string">&quot;COLUMNS&quot;</span></span><br><span class="line">    <span class="string">&quot;COMMENT&quot;</span></span><br><span class="line">    <span class="string">&quot;COMMIT&quot;</span></span><br><span class="line">    <span class="string">&quot;CREATE&quot;</span></span><br><span class="line">    <span class="string">&quot;CURRENT&quot;</span></span><br><span class="line">    <span class="string">&quot;CYCLE&quot;</span></span><br><span class="line">    <span class="string">&quot;DESC&quot;</span></span><br><span class="line">    <span class="string">&quot;DESCRIBE&quot;</span></span><br><span class="line">    <span class="string">&quot;DISABLE&quot;</span></span><br><span class="line">    <span class="string">&quot;DIV&quot;</span></span><br><span class="line">    <span class="string">&quot;DO&quot;</span></span><br><span class="line">    <span class="string">&quot;DOUBLE&quot;</span></span><br><span class="line">    <span class="string">&quot;DUPLICATE&quot;</span></span><br><span class="line">    <span class="string">&quot;ENABLE&quot;</span></span><br><span class="line">    <span class="string">&quot;END&quot;</span></span><br><span class="line">    <span class="string">&quot;EXCLUDE&quot;</span></span><br><span class="line">    <span class="string">&quot;EXTRACT&quot;</span></span><br><span class="line">    <span class="string">&quot;FALSE&quot;</span></span><br><span class="line">    <span class="string">&quot;FIRST&quot;</span></span><br><span class="line">    <span class="string">&quot;FN&quot;</span></span><br><span class="line">    <span class="string">&quot;FOLLOWING&quot;</span></span><br><span class="line">    <span class="string">&quot;FORMAT&quot;</span></span><br><span class="line">    <span class="string">&quot;GROUP&quot;</span></span><br><span class="line">    <span class="string">&quot;GROUP_CONCAT&quot;</span></span><br><span class="line">    <span class="string">&quot;IF&quot;</span></span><br><span class="line">    <span class="string">&quot;INDEX&quot;</span></span><br><span class="line">    <span class="string">&quot;INSERT&quot;</span></span><br><span class="line">    <span class="string">&quot;INTERVAL&quot;</span></span><br><span class="line">    <span class="string">&quot;ISNULL&quot;</span></span><br><span class="line">    <span class="string">&quot;KEY&quot;</span></span><br><span class="line">    <span class="string">&quot;LAST&quot;</span></span><br><span class="line">    <span class="string">&quot;LEFT&quot;</span></span><br><span class="line">    <span class="string">&quot;LIMIT&quot;</span></span><br><span class="line">    <span class="string">&quot;MATERIALIZED&quot;</span></span><br><span class="line">    <span class="string">&quot;NEXTVAL&quot;</span></span><br><span class="line">    <span class="string">&quot;NO&quot;</span></span><br><span class="line">    <span class="string">&quot;NOLOCK&quot;</span></span><br><span class="line">    <span class="string">&quot;NOT&quot;</span></span><br><span class="line">    <span class="string">&quot;NULL&quot;</span></span><br><span class="line">    <span class="string">&quot;NULLS&quot;</span></span><br><span class="line">    <span class="string">&quot;OF&quot;</span></span><br><span class="line">    <span class="string">&quot;OFFSET&quot;</span></span><br><span class="line">    <span class="string">&quot;ON&quot;</span></span><br><span class="line">    <span class="string">&quot;OPEN&quot;</span></span><br><span class="line">    <span class="string">&quot;OPTIMIZE&quot;</span></span><br><span class="line">    <span class="string">&quot;ORDER&quot;</span></span><br><span class="line">    <span class="string">&quot;OVER&quot;</span></span><br><span class="line">    <span class="string">&quot;PARTITION&quot;</span></span><br><span class="line">    <span class="string">&quot;PATH&quot;</span></span><br><span class="line">    <span class="string">&quot;PERCENT&quot;</span></span><br><span class="line">    <span class="string">&quot;PRECISION&quot;</span></span><br><span class="line">    <span class="string">&quot;PRIMARY&quot;</span></span><br><span class="line">    <span class="string">&quot;PRIOR&quot;</span></span><br><span class="line">    <span class="string">&quot;PROCEDURE&quot;</span></span><br><span class="line">    <span class="string">&quot;PUBLIC&quot;</span></span><br><span class="line">    <span class="string">&quot;RANGE&quot;</span></span><br><span class="line">    <span class="string">&quot;READ&quot;</span></span><br><span class="line">    <span class="string">&quot;REPLACE&quot;</span></span><br><span class="line">    <span class="string">&quot;RIGHT&quot;</span></span><br><span class="line">    <span class="string">&quot;ROW&quot;</span></span><br><span class="line">    <span class="string">&quot;ROWS&quot;</span></span><br><span class="line">    <span class="string">&quot;SCHEMA&quot;</span></span><br><span class="line">    <span class="string">&quot;SEPARATOR&quot;</span></span><br><span class="line">    <span class="string">&quot;SEQUENCE&quot;</span></span><br><span class="line">    <span class="string">&quot;SESSION&quot;</span></span><br><span class="line">    <span class="string">&quot;SET&quot;</span></span><br><span class="line">    <span class="string">&quot;SIBLINGS&quot;</span></span><br><span class="line">    <span class="string">&quot;SIZE&quot;</span></span><br><span class="line">    <span class="string">&quot;START&quot;</span></span><br><span class="line">    <span class="string">&quot;TABLE&quot;</span></span><br><span class="line">    <span class="string">&quot;TABLES&quot;</span></span><br><span class="line">    <span class="string">&quot;TEMP&quot;</span></span><br><span class="line">    <span class="string">&quot;TEMPORARY&quot;</span></span><br><span class="line">    <span class="string">&quot;TO&quot;</span></span><br><span class="line">    <span class="string">&quot;TOP&quot;</span></span><br><span class="line">    <span class="string">&quot;TRUE&quot;</span></span><br><span class="line">    <span class="string">&quot;TRUNCATE&quot;</span></span><br><span class="line">    <span class="string">&quot;TYPE&quot;</span></span><br><span class="line">    <span class="string">&quot;UNSIGNED&quot;</span></span><br><span class="line">    <span class="string">&quot;VALIDATE&quot;</span></span><br><span class="line">    <span class="string">&quot;VALUE&quot;</span></span><br><span class="line">    <span class="string">&quot;VALUES&quot;</span></span><br><span class="line">    <span class="string">&quot;VIEW&quot;</span></span><br><span class="line">    <span class="string">&quot;XML&quot;</span></span><br><span class="line">    <span class="string">&quot;XMLSERIALIZE&quot;</span></span><br><span class="line">    <span class="string">&quot;ZONE&quot;</span></span><br><span class="line">    <span class="string">&quot;&#123;d&quot;</span></span><br><span class="line">    <span class="string">&quot;&#123;t&quot;</span></span><br><span class="line">    <span class="string">&quot;&#123;ts&quot;</span></span><br><span class="line">    <span class="string">&quot;~&quot;</span></span><br><span class="line">    &lt;K_DATETIMELITERAL&gt;</span><br><span class="line">    &lt;K_DATE_LITERAL&gt;</span><br><span class="line">    &lt;K_TIME_KEY_EXPR&gt;</span><br><span class="line">    &lt;S_CHAR_LITERAL&gt;</span><br><span class="line">    &lt;S_DOUBLE&gt;</span><br><span class="line">    &lt;S_HEX&gt;</span><br><span class="line">    &lt;S_IDENTIFIER&gt;</span><br><span class="line">    &lt;S_LONG&gt;</span><br><span class="line">    &lt;S_QUOTED_IDENTIFIER&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>根据以上报错信息找到 <code>PaginationInnerInterceptor.java:343</code><br><img src="https://raw.githubusercontent.com/MemoryL7/images-hosting/master/PaginationInnerInterceptor.5kdhlny0fio0.png" alt="PaginationInnerInterceptor"><br>可以看到在方法开始前判断是否优化count语句，只要将该值设置为false就行了，往上一级找到该属性在Page类中，就是我们使用Mybatis Plus分页检索时，传入的Page参数<br/><br>设置Page中的<code>optimizeCountSql</code>为<code>false</code>即可。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>MyBatisPlus</category>
+      </categories>
+      <tags>
+        <tag>SpringBoot</tag>
+        <tag>MyBatisPlus</tag>
+      </tags>
+  </entry>
+</search>
